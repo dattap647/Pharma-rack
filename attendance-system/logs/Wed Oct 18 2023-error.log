@@ -1,0 +1,76 @@
+========================================
+ 2023-10-18T09:18:50.361Z 
+ Test Failed! 
+========================================
+========================================
+ 2023-10-18T09:28:28.571Z 
+ result is not defined 
+========================================
+========================================
+ 2023-10-18T12:04:33.898Z 
+ [object Object] 
+========================================
+========================================
+ 2023-10-18T12:05:34.391Z 
+ [object Object] 
+========================================
+========================================
+ 2023-10-18T12:09:08.125Z 
+ {"errors":[{"type":"field","msg":"User name must be at least 3 characters long","path":"username","location":"body"},{"type":"field","msg":"Invalid email address","path":"email","location":"body"},{"type":"field","msg":"Password must be at least 6 characters long","path":"password","location":"body"},{"type":"field","msg":"First name must be at least 3 characters long","path":"firstname","location":"body"},{"type":"field","msg":"Last name must be at least 3 characters long","path":"lastname","location":"body"},{"type":"field","msg":"DOB must be valid date","path":"dob","location":"body"}]} 
+========================================
+========================================
+ 2023-10-18T12:11:07.625Z 
+ {"errors":[{"type":"field","value":"User1","msg":"Invalid email address","path":"email","location":"body"},{"type":"field","msg":"Password must be at least 6 characters long","path":"password","location":"body"},{"type":"field","msg":"First name must be at least 3 characters long","path":"firstname","location":"body"},{"type":"field","msg":"Last name must be at least 3 characters long","path":"lastname","location":"body"},{"type":"field","msg":"DOB must be valid date","path":"dob","location":"body"}]} 
+========================================
+========================================
+ 2023-10-18T12:21:13.023Z 
+ Invalid email address,Password must be at least 6 characters long,First name must be at least 3 characters long,Last name must be at least 3 characters long,DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:22:29.639Z 
+ Invalid email address, Password must be at least 6 characters long, First name must be at least 3 characters long, Last name must be at least 3 characters long, DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:25:12.713Z 
+ Password must be at least 6 characters long, DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:25:20.181Z 
+ DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:25:36.008Z 
+ DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:25:42.829Z 
+ DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:25:55.681Z 
+ DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:26:00.949Z 
+ DOB must be valid date 
+========================================
+========================================
+ 2023-10-18T12:45:51.129Z 
+ Error: Invalid salt. Salt must be in the form of: $Vers$log2(NumRounds)$saltvalue 
+========================================
+========================================
+ 2023-10-18T12:52:03.895Z 
+ MongoServerError: E11000 duplicate key error collection: test.users index: username_1 dup key: { username: "User1" } 
+========================================
+========================================
+ 2023-10-18T13:01:53.913Z 
+ MongoServerError is not defined 
+========================================
+========================================
+ 2023-10-18T13:02:32.609Z 
+ Right-hand side of 'instanceof' is not an object 
+========================================
+========================================
+ 2023-10-18T13:03:52.390Z 
+ Invalid client assertion provided! 
+========================================

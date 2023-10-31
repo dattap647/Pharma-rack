@@ -1,0 +1,57 @@
+========================================
+ 2023-10-23T06:09:05.148Z 
+ undefined 
+========================================
+========================================
+ 2023-10-23T06:17:07.411Z 
+ undefined 
+========================================
+========================================
+ 2023-10-23T06:21:12.223Z 
+ undefined 
+========================================
+========================================
+ 2023-10-23T06:21:22.120Z 
+ undefined 
+========================================
+========================================
+ 2023-10-23T06:26:05.712Z 
+ undefined 
+========================================
+========================================
+ 2023-10-23T06:29:29.246Z 
+ undefined 
+========================================
+{"data":null,"functionName":"sendSuccessResponse","level":"error","messageCode":null,"name":"CustomError","statusCode":500,"timestamp":"2023-10-23T06:31:12.800Z"}
+{"data":null,"functionName":"sendSuccessResponse","level":"error","messageCode":null,"name":"CustomError","statusCode":500,"timestamp":"2023-10-23T06:32:25.041Z"}
+{"level":"error","message":{"data":null,"error_message":"ReferenceError: responsedd is not defined","functionName":"sendSuccessResponse","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T06:34:13.063Z"}
+{"level":"error","message":{"data":null,"error_message":"TypeError: Joi.validate is not a function","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:06:40.984Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Invalid message options","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:14:26.961Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Invalid message options","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:15:07.756Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Invalid message options","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:18:19.456Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Invalid message options","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:25:05.708Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Invalid message options","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:27:14.248Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: ValidationError: \"username\" is required","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T07:29:26.215Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: \"username\" is required","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T07:32:25.806Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: \"username\" is required","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T08:35:19.102Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: \"email\" is required","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T08:39:35.388Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid email address","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T08:40:06.998Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid email address","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T08:41:34.102Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: \"email\" is required","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T08:42:18.858Z"}
+{"level":"error","message":{"data":null,"error_message":"ReferenceError: responsedd is not defined","functionName":"sendSuccessResponse","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T08:49:38.548Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: You have tried to call .then(), .catch(), or invoked await on the result of query that is not a promise, which is a programming error. Try calling con.promise().query(), or require('mysql2/promise') instead of 'mysql2' for a promise-compatible version of the query interface. To learn how to use async/await or Promises check out documentation at https://www.npmjs.com/package/mysql2#using-promise-wrapper, or the mysql2 documentation at https://github.com/sidorares/node-mysql2/tree/master/documentation/en/Promise-Wrapper.md","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T08:59:32.780Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: You have tried to call .then(), .catch(), or invoked await on the result of query that is not a promise, which is a programming error. Try calling con.promise().query(), or require('mysql2/promise') instead of 'mysql2' for a promise-compatible version of the query interface. To learn how to use async/await or Promises check out documentation at https://www.npmjs.com/package/mysql2#using-promise-wrapper, or the mysql2 documentation at https://github.com/sidorares/node-mysql2/tree/master/documentation/en/Promise-Wrapper.md","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T09:03:31.359Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: TypeError: poolConnect.promise is not a function","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T09:14:00.918Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?, ?, ?)' at line 1","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T09:22:16.508Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?, ?, ?, ?, ?, ?)' at line 1","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T09:23:50.931Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Duplicate entry 'admin' for key 'users.username'","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T09:32:56.912Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?)' at line 1","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T11:34:37.453Z"}
+{"level":"error","message":{"data":null,"error_message":"Error: Duplicate entry 'user2@persistent.com' for key 'users.username'","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T11:35:01.530Z"}
+{"level":"error","message":{"data":null,"error_message":"ReferenceError: validateSchema is not defined","functionName":"login","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T12:18:29.930Z"}
+{"level":"error","message":{"data":null,"error_message":"TypeError: schema.validate is not a function","functionName":"login","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T12:18:57.614Z"}
+{"level":"error","message":{"data":null,"error_message":"TypeError: schema.validate is not a function","functionName":"login","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-23T12:20:01.253Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid email address","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T12:20:39.571Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid email address","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T12:21:21.387Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid credentials","functionName":"login","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T12:40:18.699Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid Credentials!","functionName":"login","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-10-23T12:40:31.918Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: User account not active!","functionName":"login","messageCode":null,"name":"CustomError","statusCode":401},"timestamp":"2023-10-23T12:43:56.589Z"}

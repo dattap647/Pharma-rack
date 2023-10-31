@@ -1,0 +1,52 @@
+========================================
+ 2023-10-19T05:56:15.206Z : info
+ {"user_id":2,"username":"User2","email":"User2@test.in","password":"$2b$10$4LUJF1Iyh12RNcad994U/OYL0Arav71QXznnuGWhsH5KcX0mnnGMi","firstname":"Abc2","lastname":"123","dob":"2000-03-03T00:00:00.000Z","_id":"6530c4f44c118c96dabe3768","__v":0} 
+========================================
+========================================
+ 2023-10-19T05:59:12.505Z : info
+ User Created! 
+========================================
+========================================
+ 2023-10-19T09:39:12.450Z : info
+ undefined 
+========================================
+========================================
+ 2023-10-19T09:44:39.047Z : info
+ null 
+========================================
+========================================
+ 2023-10-19T09:45:37.647Z : info
+ null 
+========================================
+========================================
+ 2023-10-19T09:54:21.486Z : info
+ null 
+========================================
+========================================
+ 2023-10-19T09:54:36.599Z : info
+ {"_id":"6530c5b04cfc1da56b2c618d","user_id":3,"username":"User3","email":"User3@test.in","password":"$2b$10$w/W4Lm.K5xbyBJKoCzlyGepqzq5P6ymiwqbVswkmQXcQEFqIihwlW","firstname":"Abc3","lastname":"123","dob":"2000-03-03T00:00:00.000Z","__v":0} 
+========================================
+========================================
+ 2023-10-19T09:59:01.492Z : info
+ {"user_id":3,"username":"User3","email":"User3@test.in","firstname":"Abc3","lastname":"123","dob":"2000-03-03T00:00:00.000Z","__v":0} 
+========================================
+========================================
+ 2023-10-19T10:17:22.898Z : info
+ {"user_id":3,"username":"User3","email":"User3@test.in","password":"$2b$10$w/W4Lm.K5xbyBJKoCzlyGepqzq5P6ymiwqbVswkmQXcQEFqIihwlW","firstname":"Abc3","lastname":"123","dob":"2000-03-03T00:00:00.000Z","__v":0} 
+========================================
+========================================
+ 2023-10-19T11:01:19.144Z : info
+ {"user_id":3,"token":"U2FsdGVkX1/2FaGcSR48xmyLIiPNW0ShSOpINXRbjiDw7KG6fldnkRcRsJf/lcGdKng+K1s+NgRBwomgwQ/+7yEFfmrLZnJ3ftHSW1KHw/trlJCBX6zOe4fmfnNbU9ga1o5wYtQdWghpbNN84H1zXzEYIulfp/fx1HxSAODtV1Dv1zH20PSqwT5qwJMnVmlnm79/oI0jHKC1COhIHVg/msav4kidNtdd3DgAbywVj0s="} 
+========================================
+========================================
+ 2023-10-19T11:03:48.270Z : info
+ {"user_id":3,"token":"U2FsdGVkX18y2SHklsKJEQctdkiuLTZK71B8xAkrNWJD/BEXTGnuyt3Xzv09RVthFMw+F7az5n8tp0OMIzQ0S/H++VHzXlgo5dUbFzQcAlBQRtPR0XrJDpqlq6iKIZuNQ+SjX0dYS5E9AOsTKHTXmjCaCVhH0ebw5s8KEqtDJvuQqbvrUpy56wHG/R4i2dRAJtvyqM9yFus6SZmalPkv2Pn84LIZsQogbCCfbBjy2qY="} 
+========================================
+========================================
+ 2023-10-19T11:20:13.320Z : info
+ {"user_id":3,"token":"U2FsdGVkX18XbqisyYiQRUvRm/Uu9aJD6uCpPHPZXF8U32tHEYZ9CxK30eNY6edPf8/68gkAgzccwskGFguZEQ/kdiA6hpY8VMBwhAGqs+RAqSrQxBPyF+O7d6nJdx/WH9Sle7tPlTAdKTYw2EoWPp6Bci9shygCwmBIs0EtTyaeOwME8fNoXrNeZglttNZhRPja4r9r9q6dNin1i9ko7VB5eoEEIIznzNvqvbbVfIY="} 
+========================================
+========================================
+ 2023-10-19T11:32:04.293Z : info
+ {"user_id":3,"iat":1697714413,"exp":1697718013} 
+========================================

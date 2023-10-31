@@ -1,0 +1,8 @@
+========================================
+ 2023-10-18T12:15:01.064Z 
+ {"errors":[{"type":"field","value":"User1","msg":"Invalid email address","path":"email","location":"body"},{"type":"field","msg":"Password must be at least 6 characters long","path":"password","location":"body"},{"type":"field","msg":"First name must be at least 3 characters long","path":"firstname","location":"body"},{"type":"field","msg":"Last name must be at least 3 characters long","path":"lastname","location":"body"},{"type":"field","msg":"DOB must be valid date","path":"dob","location":"body"}]} 
+========================================
+========================================
+ 2023-10-18T12:18:05.426Z 
+ ["Invalid email address","Password must be at least 6 characters long","First name must be at least 3 characters long","Last name must be at least 3 characters long","DOB must be valid date"] 
+========================================

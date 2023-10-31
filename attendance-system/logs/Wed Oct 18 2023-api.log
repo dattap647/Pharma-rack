@@ -1,0 +1,19 @@
+{"level":"info","message":"API Call Log","method":"POST","responseTime":null,"status":200,"timestamp":"2023-10-18T09:59:51.663Z","url":"/user-repo/v1/auth/login"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":7,"status":200,"timestamp":"2023-10-18T10:09:31.055Z","url":"/user-repo/v1/auth/login"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":4,"status":200,"timestamp":"2023-10-18T10:10:13.105Z","url":"/user-repo/v1/auth/login"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"8 ms","status":200,"timestamp":"2023-10-18T10:11:14.057Z","url":"/user-repo/v1/auth/login"}
+{"body":{},"level":"info","message":"API Call Log","method":"POST","responseTime":"7 ms","status":200,"timestamp":"2023-10-18T10:14:55.536Z","url":"/user-repo/v1/auth/login"}
+{"body":{},"level":"info","message":"API Call Log","method":"POST","responseTime":"2 ms","status":200,"timestamp":"2023-10-18T10:16:48.101Z","url":"/user-repo/v1/auth/login"}
+{"body":{"payload":{"email":"test@123.com","password":"test@123"}},"level":"info","message":"API Call Log","method":"POST","responseTime":"6 ms","status":200,"timestamp":"2023-10-18T10:24:57.353Z","url":"/user-repo/v1/auth/login"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"6 ms","status":200,"timestamp":"2023-10-18T10:28:07.923Z","url":"/user-repo/v1/auth/login"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"7 ms","status":200,"timestamp":"2023-10-18T10:29:09.438Z","url":"/user-repo/v1/auth/login"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"4 ms","status":200,"timestamp":"2023-10-18T12:26:06.410Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"12 ms","status":200,"timestamp":"2023-10-18T12:39:14.383Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"14 ms","status":200,"timestamp":"2023-10-18T12:39:39.256Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"27363 ms","status":200,"timestamp":"2023-10-18T12:41:19.894Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"6588 ms","status":500,"timestamp":"2023-10-18T12:45:51.136Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"9462 ms","status":200,"timestamp":"2023-10-18T12:46:40.129Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"22474 ms","status":500,"timestamp":"2023-10-18T12:52:03.904Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"410 ms","status":500,"timestamp":"2023-10-18T13:01:53.936Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"364 ms","status":500,"timestamp":"2023-10-18T13:02:32.618Z","url":"/user-repo/v1/auth/register"}
+{"level":"info","message":"API Call Log","method":"POST","responseTime":"7365 ms","status":500,"timestamp":"2023-10-18T13:03:52.403Z","url":"/user-repo/v1/auth/register"}
