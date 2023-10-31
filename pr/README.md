@@ -68,3 +68,63 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+CREATE TABLE pharmarack.Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    role_id INT,
+    manager_id INT,
+    status ENUM('active', 'blocked', 'pending') NOT NULL,
+    approval_id INT, -- New field: to store the ID of the approving manager/admin
+    FOREIGN KEY (role_id) REFERENCES Roles(role_id),
+    INDEX idx_email (email),
+    FOREIGN KEY (manager_id) REFERENCES Users(user_id),
+    FOREIGN KEY (approval_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE pharmarack.Roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE pharmarack.Attendance (
+    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    date DATE,
+    status ENUM('Pending', 'Approved', 'Rejected') NOT NULL,
+    type varchar(100),
+    total_hours DECIMAL(5, 2),
+    INDEX idx_user_id (user_id),
+    INDEX idx_date (date),
+    INDEX idx_status (status),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Notifications (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT,
+    receiver_id INT,
+    message TEXT,
+    is_read BOOLEAN DEFAULT 0,
+    FOREIGN KEY (sender_id) REFERENCES Users(user_id),
+    FOREIGN KEY (receiver_id) REFERENCES Users(user_id)
+);
+
+
+INSERT INTO pharmarack.roles (role_name) VALUES ('admin');
+INSERT INTO pharmarack.roles (role_name) VALUES ('manager');
+INSERT INTO pharmarack.roles (role_name) VALUES ('user');
+
+
+
+
+alter table pharmarack.users DROP email;
+alter table pharmarack.users CHANGE username email varchar(255);
+
+alter table pharmarack.users add last_name varchar(255);
+
+alter table pharmarack.users add first_name varchar(255);

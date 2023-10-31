@@ -1,0 +1,3 @@
+{"level":"error","message":{"data":null,"error_message":"CustomError: CustomError: Error: Table 'attendance-system.users' doesn't exist","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-31T09:51:35.288Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: CustomError: Error: Table 'attendance-system.users' doesn't exist","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-31T10:00:24.047Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: CustomError: Error: Unknown column 'first_name' in 'field list'","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-10-31T10:00:48.064Z"}
