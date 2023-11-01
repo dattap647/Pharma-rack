@@ -13,17 +13,20 @@ import { getRole } from "../auth/index";
 
 const SignUp = () => {
   const role = getRole();
+
   const navigate = useNavigate();
   const [data, setData] = useState({
     first_name: '',
     last_name: '',
     email: '',
     password: '',
-    role_id: 'User', // Default role selection
+    role_id: '3', // Default role selection 3-user 2-manager 
     manager_id: '', // Initialize manager_id
     managerList: [],
   });
+  const [roles,setRoles]=useState('User')
 
+  
   const [error, setError] = useState({
     errors: {},
     isError: false
@@ -34,9 +37,10 @@ const SignUp = () => {
   }, [data]);
 
   useEffect(() => {
-    if (data.role_id === 'User') {
+    if (data.role_id === '3') {
       // Fetch the list of managers when the role is 'User'
       fetchManagerList();
+      
     }
   }, [data.role_id]);
 
@@ -85,17 +89,34 @@ const SignUp = () => {
   const handleChange = (event, property) => {
     if (property === 'role_id') {
       const selectedRole = event.target.value;
-      const roleId = selectedRole === 'User' ? 3 : 2; // Set 3 for users and 2 for managers
+      console.log(selectedRole);
+      if(selectedRole==='User'){
+        const roleId='3'
+        setRoles(selectedRole)
+    setData({
+      ...data,
+      role_id: roleId,
+      manager_id: '', // Clear the manager_id when the role changes
+    });
+      }
+      else{
+        const roleId='2'
+        setRoles(selectedRole)
       setData({
         ...data,
         role_id: roleId,
-        manager_id: '', // Clear the manager_id when the role changes
+        manager_id: '',// Clear the manager_id when the role changes
+        selectedManager:'' //clear the selected Manager if role is manager
       });
-    } else if (property === 'manager_id') {
+      }
+    
+    } else if (property === 'selectedManager') {
+      console.log("manager_id",event.target.value);
       // Set the manager_id value
-      setData({ ...data, manager_id: event.target.value });
+      setData({ ...data, manager_id: event.target.value,selectedManager:event.target.value });
     } else {
       // Handle other input fields
+      console.log("else block");
       setData({ ...data, [property]: event.target.value });
     }
   };
@@ -162,7 +183,7 @@ const SignUp = () => {
                   <Label htmlFor="role_id">Select Role</Label>
                   <br></br>
                   <select
-                    value={data.role_id}
+                    value={roles}
                     onChange={(e) => handleChange(e, 'role_id')}
                     id="role_id"
                   >
@@ -170,7 +191,7 @@ const SignUp = () => {
                     <option value="Manager">Manager</option>
                   </select>
                   <br></br>
-                  {data.role_id === 'User' && (
+                  {roles === 'User' && (
                     <div>
                       <Label htmlFor="selectedManager">Select Manager</Label>
                       <br></br>
@@ -182,7 +203,7 @@ const SignUp = () => {
                         <option value="">Select a Manager</option>
                         {data.managerList.map((manager) => (
                           <option key={manager.user_id} value={manager.user_id}>
-                            {manager.first_name} {manager.last_name}
+                            {manager.first_name}  {manager.last_name}
                           </option>
                         ))}
                       </select>

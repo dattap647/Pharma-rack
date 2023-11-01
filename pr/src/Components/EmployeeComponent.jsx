@@ -61,6 +61,7 @@ function EmployeeComponent() {
   const [userEnteredTotalHours, setUserEnteredTotalHours] = useState(0);
 
   const handleSubmit = async () => {
+    console.log("slected date ",selectedDates);
     try {
       const formattedDates = formatDatesForApi(selectedDates);
       console.log("Selected Dates:::: ",formattedDates);
@@ -98,10 +99,10 @@ function EmployeeComponent() {
               value={selectedDates}
               onChange={setSelectedDates}
               multiple
-              range
-              dateSeparator=" to "
+              // dateSeparator=" to "
               multipleRangeSeparator="&"
               placeholder="Select Dates"
+              maxDate={new Date().setDate(1)+1}
             />
           </div>
           <br />

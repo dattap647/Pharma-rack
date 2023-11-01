@@ -53,7 +53,7 @@ function AllManagers() {
           return;
         }
 
-        const response = await axios.get('http://localhost:3001/attendance-management/v1/admin/manager-list', {
+        const response = await axios.get('http://localhost:3001/attendance-management/v1/auth/manager-list', {
           headers: {
             Authorization: `${token}`,
           },
@@ -85,7 +85,7 @@ function AllManagers() {
           <option value="">Select a Manager</option>
           {managers.map((manager) => (
             <option key={manager.user_id} value={manager.user_id}>
-              {manager.full_name}
+              {manager.first_name}{manager.last_name}
             </option>
           ))}
         </select>

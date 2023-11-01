@@ -11,6 +11,8 @@ function TimeCardViewer() {
   const [from_date, setFromDate] = useState(null);
   const [to_date, setToDate] = useState(null);
   const [timeCards, setTimeCards] = useState([]);
+  const [showdata,setShowNodata]=useState(false)
+  const [loading,setLoading]=useState(false)
 
   const handleDateChange = (date, dateType) => {
     if (dateType === 'from') {
@@ -21,6 +23,9 @@ function TimeCardViewer() {
   };
 
   const fetchTimeCards = async () => {
+    
+ 
+
     try {
       const token = getToken();
       if (!token) {
@@ -39,15 +44,26 @@ function TimeCardViewer() {
           Authorization: `${token}`,
         },
       });
-
+       setLoading(true)
       if (response.data.success) {
+        if(response.data.data.length===0){
+          setShowNodata(true)
+          setTimeCards([])
+        }
+      else{
+        setShowNodata(false)
         setTimeCards(response.data.data);
+      }
+        
       } else {
         console.error('Failed to fetch time cards');
       }
     } catch (error) {
       console.error('Error fetching time cards:', error);
     }
+    setTimeout(() => {
+      setLoading(false)
+     }, 1000);
   }
 
   return (
@@ -63,6 +79,7 @@ function TimeCardViewer() {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <DatePicker
           selected={from_date}
+          
           onChange={(date) => handleDateChange(date, 'from')}
         />
       </div>
@@ -72,14 +89,20 @@ function TimeCardViewer() {
         <DatePicker
           selected={to_date}
           onChange={(date) => handleDateChange(date, 'to')}
+          
+          maxDate={new Date().setDate(1)}
         />
       </div>
       <br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Button onClick={fetchTimeCards} className='dark' outline>Fetch Time Cards</Button>
+     
+      <div >
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Button onClick={fetchTimeCards} className='dark' outline disabled={loading}>Fetch Time Cards</Button>
       &nbsp;&nbsp;&nbsp;&nbsp;
-      <Button className='ms-2 dark' href="/user/employee" outline>Return to Home</Button>
+     
+      <Button className='ms-2 dark' href="/user/employee" outline disabled={loading}>Return to Home</Button>
       
-      {timeCards.length > 0 && (
+      </div>
+      {timeCards.length > 0 &&  (
         <div>
           <h2>Time Cards</h2>
           {timeCards.map((card) => (
@@ -91,6 +114,17 @@ function TimeCardViewer() {
           ))}
         </div>
       )}
+      
+      {
+        showdata?
+        ( <div className=" d-flex  align-item-center  mt-5 px-5 " style={{fontSize:20, fontWeight:600 , color:"grey"}}>
+      <div className="">
+      <p>No Data found</p>
+      </div>
+      
+      </div>):null}
+    
+    
     </MDBContainer>
     </div>
   );
