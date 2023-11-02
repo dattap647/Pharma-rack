@@ -17,3 +17,4 @@
 {"level":"error","message":{"data":null,"error_message":"CustomError: Date must be a valid date; \"dates\" does not contain 1 required value(s)","functionName":"addAttendanceDetails","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-11-01T11:23:51.664Z"}
 {"level":"error","message":{"data":null,"error_message":"CustomError: \"logged_hours\" is required","functionName":"addAttendanceDetails","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-11-01T12:17:32.464Z"}
 {"level":"error","message":{"data":null,"error_message":"CustomError: Password must be 6 characters long","functionName":"register","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-11-01T12:34:27.771Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: Invalid credentials","functionName":"login","messageCode":null,"name":"CustomError","statusCode":400},"timestamp":"2023-11-01T12:36:52.882Z"}

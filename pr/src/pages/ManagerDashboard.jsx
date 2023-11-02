@@ -9,6 +9,7 @@ import { MDBContainer } from 'mdb-react-ui-kit';
 function ManagerDashboard() {
   //importing fn to get role from console
   const userRole = getRole();
+  console.log(userRole);
   const [id, setRequestId] = useState('');
   const [status, setStatus] = useState('Approved');
   const [responseMessage, setResponseMessage] = useState('');

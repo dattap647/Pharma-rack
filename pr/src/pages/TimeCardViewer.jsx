@@ -90,7 +90,7 @@ function TimeCardViewer() {
           selected={to_date}
           onChange={(date) => handleDateChange(date, 'to')}
           
-          maxDate={new Date().setDate(1)}
+          maxDate={new Date()}
         />
       </div>
       <br />

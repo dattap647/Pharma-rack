@@ -52,6 +52,7 @@ if(isLoggedIn()){
 export const getRole=()=>{
     if(isLoggedIn()){
         const responseData = JSON.parse(localStorage.getItem("data"));
+        console.log(responseData.data);
         if(responseData && responseData.data && responseData.data.role){
             return responseData.data.role;
         }

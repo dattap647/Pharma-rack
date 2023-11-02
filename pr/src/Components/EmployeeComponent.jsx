@@ -4,7 +4,7 @@ import DatePicker from 'react-multi-date-picker';
 import CustomNavbar from './CustomNavbar';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { getToken } from '../auth/index';
+import { getRole, getToken } from '../auth/index';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3001',
@@ -57,6 +57,7 @@ const formatDatesForApi = (dates) => {
 };
 
 function EmployeeComponent() {
+  const userRole = getRole();
   const [selectedDates, setSelectedDates] = useState([]);
   const [userEnteredTotalHours, setUserEnteredTotalHours] = useState(0);
 
@@ -102,7 +103,7 @@ function EmployeeComponent() {
               // dateSeparator=" to "
               multipleRangeSeparator="&"
               placeholder="Select Dates"
-              maxDate={new Date().setDate(1)+1}
+              maxDate={new Date()}
             />
           </div>
           <br />
@@ -127,7 +128,10 @@ function EmployeeComponent() {
           &nbsp;&nbsp;
           <Button className='ms-2 dark' color='dark' href="/user/managers" outline>Request Manager</Button>
           &nbsp;&nbsp;
-          <Button className='ms-2 dark' color='dark' href="/user/managerDashboard" outline>Approve TimeCard</Button>
+          {
+userRole===2?<Button className='ms-2 dark' color='dark' href="/user/managerDashboard" outline>Approve TimeCard</Button>:null
+          }
+          
         </CardBody>
       </Card>
     </Container>

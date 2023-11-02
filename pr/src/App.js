@@ -21,7 +21,7 @@ function App() {
       <BrowserRouter>
       <ToastContainer />
         <Routes>
-          <Route path="/" element={<CustomNavbar />} />
+          <Route path="/" element={<Login/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           
@@ -32,6 +32,8 @@ function App() {
           <Route path="previousTimeCards" element={<TimeCardViewer />} />
           <Route path="managerDashboard" element={<ManagerDashboard />} />
           </Route>
+
+          
         </Routes>
       </BrowserRouter>
     </Container>
