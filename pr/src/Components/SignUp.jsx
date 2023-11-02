@@ -78,14 +78,36 @@ const SignUp = () => {
 
     }).catch((error) => {
       console.log(error);
-      console.log("Error log");
+      console.log("Error log",error);
+      //  toast.error(error);
       setError({
         errors: error,
         isError: true
       });
-    });
+    })
+    .finally(()=>{
+      setError({
+        errors: {},
+        isError: false
+      });
+      handleReset()
+    }
+  );
   }
-
+  const handleReset=()=>{
+    setData({ first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    role_id: '3', // Default role selection 3-user 2-manager 
+    manager_id: '', // Initialize manager_id
+    managerList: [],})
+    if (data.role_id === '3') {
+      // Fetch the list of managers when the role is 'User'
+      fetchManagerList();
+      
+    }
+  }
   const handleChange = (event, property) => {
     if (property === 'role_id') {
       const selectedRole = event.target.value;
@@ -105,7 +127,7 @@ const SignUp = () => {
       setData({
         ...data,
         role_id: roleId,
-        manager_id: '',// Clear the manager_id when the role changes
+        manager_id: null,// Clear the manager_id when the role changes
         selectedManager:'' //clear the selected Manager if role is manager
       });
       }
@@ -116,7 +138,7 @@ const SignUp = () => {
       setData({ ...data, manager_id: event.target.value,selectedManager:event.target.value });
     } else {
       // Handle other input fields
-      console.log("else block");
+      // console.log("else block");
       setData({ ...data, [property]: event.target.value });
     }
   };
@@ -184,7 +206,7 @@ const SignUp = () => {
                   <br></br>
                   <select
                     value={roles}
-                    onChange={(e) => handleChange(e, 'role_id')}
+                    onChange={(e) => handleChange(e,'role_id')}
                     id="role_id"
                   >
                     <option value="User">User</option>
@@ -213,7 +235,7 @@ const SignUp = () => {
                   <Container className="text-center">
                     <br></br>
                     <Button color="dark" className="btnLogin">Register</Button>
-                    <Button color="secondary" className="ms-2 btnLogin" type="reset" value="Reset">Reset</Button>
+                    <Button color="secondary" className="ms-2 btnLogin" type="reset" value="Reset" onClick={handleReset}>Reset</Button>
                   </Container>
                 </Form>
               </CardBody>

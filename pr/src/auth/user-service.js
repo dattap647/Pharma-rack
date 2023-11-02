@@ -1,6 +1,7 @@
 import { myAxios, privateAxios } from "./helper";
 
 export const signUp=(user)=>{
+    console.log("dat-----",user);
     return myAxios
     .post("/attendance-management/v1/auth/register",user)
     .then((response) => response.data)

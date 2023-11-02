@@ -85,7 +85,7 @@ function AllManagers() {
           <option value="">Select a Manager</option>
           {managers.map((manager) => (
             <option key={manager.user_id} value={manager.user_id}>
-              {manager.first_name}{manager.last_name}
+              {manager.first_name} {manager.last_name}
             </option>
           ))}
         </select>

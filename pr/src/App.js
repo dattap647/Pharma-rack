@@ -13,6 +13,7 @@ import PrivateRoute from './Components/PrivateRoute';
 import AllManagers from './pages/AllManagers';
 import ManagerDashboard from './pages/ManagerDashboard';
 import TimeCardViewer from './pages/TimeCardViewer';
+import AllEmployee from './pages/AllEmployee';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="managers" element={<AllManagers />} />
           <Route path="previousTimeCards" element={<TimeCardViewer />} />
           <Route path="managerDashboard" element={<ManagerDashboard />} />
+          <Route path="allEmployee" element={<AllEmployee />} />
           </Route>
 
           

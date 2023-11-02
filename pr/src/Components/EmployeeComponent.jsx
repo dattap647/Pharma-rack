@@ -131,7 +131,7 @@ function EmployeeComponent() {
           {
 userRole===2?<Button className='ms-2 dark' color='dark' href="/user/managerDashboard" outline>Approve TimeCard</Button>:null
           }
-          
+          &nbsp;&nbsp;{userRole===2?<Button className='ms-2 dark' color='dark' href="/user/allEmployee" outline>Manage Employees</Button>:null}
         </CardBody>
       </Card>
     </Container>

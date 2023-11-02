@@ -14,22 +14,6 @@ function ManagerDashboard() {
   const [status, setStatus] = useState('Approved');
   const [responseMessage, setResponseMessage] = useState('');
 
-  if(userRole !== 2){
-    return (
-      <div>
-        <CustomNavbar />
-       <MDBContainer className='mt-5'>
-       <h2>
-          Access Denied!!!!!
-        </h2>
-        <p>You do not have permission to access this Page </p>
-        <br />
-        <Button className='ms-2 dark' href="/user/employee" outline>Return to Home</Button>
-       </MDBContainer>
-      </div>
-    );
-  }
-
   const handleRequestUpdate = async () => {
     try {
       const token = getToken();
