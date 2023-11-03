@@ -30,13 +30,23 @@ class CommonUtility {
         }
     }
 
+    async getDefaultAdmin() {
+        try {
+            const query = 'SELECT user_id FROM Users WHERE role_id = 1';
+            const [results] = await executeQuery(query);
+            return results[0];
+        } catch (error) {
+            throw new CustomError()
+        }
+    }
+
     async addUser(data) {
         try {
-            const { email, password, first_name, last_name, role_id, manager_id} = data;
+            const { email, password, first_name, last_name, role_id, manager_id, uuid} = data;
             let res = await this.getUserByUserId(manager_id);
             if (res?.role_id != 3) {
-                const query = 'INSERT INTO Users (email, password,  first_name, last_name, role_id, manager_id, status) VALUES (?, ?, ?, ?, ?, ? , ?)';
-                const [results] = await executeQuery(query, [email, password,  first_name, last_name, role_id, manager_id, "pending"]);
+                const query = 'INSERT INTO Users (email, password,  first_name, last_name, role_id, manager_id, status, approval_token) VALUES (?, ?, ?, ?, ?, ? , ?, ?)';
+                const [results] = await executeQuery(query, [email, password,  first_name, last_name, role_id, manager_id, "pending", uuid]);
                 return results;
             }else {
                 throw "Manager ID not valid, please try again";
@@ -94,8 +104,8 @@ class CommonUtility {
             const res = await this.checkUserHasManager(data.user_id);
             if (res) {
                 const status = 'Pending';
-                const query = 'INSERT INTO Attendance (user_id, date, status, total_hours) VALUES (?, ?,  ?, ?)';
-                const [results] = await executeQuery(query, [data.user_id, data.date, status, data.logged_hours]);
+                const query = 'INSERT INTO Attendance (user_id, date, status, total_hours, approval_token) VALUES (?, ?,  ?, ?, ?)';
+                const [results] = await executeQuery(query, [data.user_id, data.date, status, data.logged_hours, data.uuid]);
                 return `Attendance record added for ${moment(data.date).format('YYYY-MM-DD')}.`;
             } else {
                 throw "Manager not assigned to you, Please send request for manager assignment.";
@@ -260,6 +270,16 @@ class CommonUtility {
         }
     }
 
+    async updateDefaultMangerId(id, manager_id){
+        try {
+            const query = 'UPDATE Users SET manager_id = ? WHERE user_id = ?';
+            const [results] = await executeQuery(query, [manager_id, id]);
+            return results;
+        } catch (error) {
+            throw new CustomError(error, 500, "updateMangerId");
+        }
+    }
+
     async getManagerUsers() {
         try {
             const query = `SELECT user_id, email, first_name, status, role_id, manager_id FROM Users where role_id != 3 and user_id != ${this.payload.user_id}`;
@@ -356,7 +376,7 @@ class CommonUtility {
             const query = 'SELECT manager_id FROM Users WHERE user_id = (SELECT user_id from Attendance where attendance_id = ?)';
             const [results] = await executeQuery(query, [attendance_id]);
 
-            if (results.manager_id !== this.payload.user_id) {
+            if (results[0].manager_id !== this.payload.user_id) {
                 return false;
             }
             return true;
@@ -434,6 +454,40 @@ class CommonUtility {
             .map(byteHex)
             .join("");
     };
+
+    //Approve/ Reject By Token
+
+    async appoveUserByToken(data){
+        try {
+            let count_query = 'SELECT count(1) as total from Users where approval_token = ?';
+            const [count] = await executeQuery(count_query, [data.token]);
+            if(count[0]?.total){
+                const query = 'UPDATE Users SET status = ?, approval_token = null  WHERE approval_token = ?';
+                const [results] = await executeQuery(query, [data.status, data.token]);
+                return results;
+            } else {
+                throw "Invalid Token";
+            }
+        } catch (error) {
+            throw new CustomError(error, 500, "appoveUserByToken");
+        }
+    }
+
+    async approveAttendanceByToken(data){
+        try {
+            let count_query = 'SELECT count(1) as total from Attendance where approval_token = ?';
+            const [count] = await executeQuery(count_query, [data.token]);
+            if(count[0]?.total){
+                const query = 'UPDATE Attendance SET status = ?, approval_token = null  WHERE approval_token = ?';
+                const [results] = await executeQuery(query, [data.status, data.token]);
+                return results;
+            } else {
+                throw "Invalid Token";
+            }
+        } catch (error) {
+            throw new CustomError(error, 500, "appoveAttendanceByToken");
+        }
+    }
 
     async decrypt(salt, encoded) {
         const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));

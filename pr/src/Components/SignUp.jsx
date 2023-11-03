@@ -235,7 +235,7 @@ const SignUp = () => {
                   <Container className="text-center">
                     <br></br>
                     <Button color="dark" className="btnLogin">Register</Button>
-                    <Button color="secondary" className="ms-2 btnLogin" type="reset" value="Reset" onClick={handleReset}>Reset</Button>
+                    <Button color="secondary" className="ms-2 btnLogin" type="reset" value="Reset" >Reset</Button>
                   </Container>
                 </Form>
               </CardBody>

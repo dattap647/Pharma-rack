@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardBody, CardTitle, Col, Container, Row, Table } from 'reactstrap'
+import { Button, Card, CardBody, CardTitle, Col, Container, Row, Table } from 'reactstrap'
 
 import CustomNavbar from '../Components/CustomNavbar'
 import axios from 'axios'
@@ -7,7 +7,7 @@ import { getToken } from '../auth'
 import { MDBIcon } from 'mdb-react-ui-kit'
 import ActiveUser from '../Components/ActiveUser'
 
-const AllEmployee = () => {
+const ManageEmployee = () => {
 const [userlist,setUserList]=useState([])
 const [isUpdate,setisUpdate]=useState(false)
 
@@ -51,9 +51,10 @@ const handleUpdate=()=>{
   return (
     <Container fluid>
     <CustomNavbar/>
-    <Card>
+    
+    <Card className='mt-5'>
     <CardBody>
-    <CardTitle className='d-flex justify-content-center'>
+    <CardTitle className='d-flex justify-content-center h5'>
     All Employee
     </CardTitle>
     
@@ -85,11 +86,13 @@ const handleUpdate=()=>{
    
   </tbody>
 </Table>
+
     </CardBody>
+  
     </Card>
-    
+   &nbsp;&nbsp;&nbsp; <Button className='mt-4 dark  ' href="/user/employee" outline >Return to Home</Button>
     </Container>
   )
 }
 
-export default AllEmployee
+export default ManageEmployee

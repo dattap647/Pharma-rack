@@ -2,6 +2,8 @@ const BaseSchemaValidator = require('../../common/schema_validator');
 const CommonUtility = require('../../utilities/common_utility');
 const userSchema = require('../../models/user_schema');
 const { addAttendanceNotification, sendManagerAssignmentRequestNotification} = require('../../common/mail_template');
+const moment = require('moment');
+const { v4: uuidv4 } = require('uuid');
 
 class User {
     constructor(param, payload, file = null) {
@@ -26,7 +28,11 @@ class User {
             const { from_date, to_date} = validatedPayload;
             const commonUtility = new CommonUtility();
             let users = await commonUtility.getUserAttendanceByUserId(this.payload.user_id, from_date, to_date);
-            return users;
+            let changed_response = users.map(user => {
+                user.date = moment(user.date).endOf().format("YYYY-MM-DD");
+                return user;
+            })
+            return changed_response;
         } catch (error) {
             throw new CustomError(error, error?.statusCode || 500, "getUsers");
         }
@@ -37,17 +43,20 @@ class User {
             
             const validatedPayload = await this.schemaValidator.validateSchema(this.payload, userSchema.addAttendanceSchema());
             const { dates, logged_hours} = validatedPayload;
-            const result = []
+            const result = [];
+            
+            const uuid = uuidv4();
             for (let i = 0; i < dates.length; i++){
                 const data = {
                     user_id : this.payload.user_id,
                     date : dates[i],
-                    logged_hours : logged_hours
+                    logged_hours : logged_hours,
+                    uuid 
                 }
                 const commonUtility = new CommonUtility();
                 result.push(await commonUtility.addUserAttendance(data));
             }
-            addAttendanceNotification(this.payload.user_id, dates);
+            addAttendanceNotification(this.payload.user_id, dates, uuid);
             return result;
         } catch (error) {
             throw new CustomError(error, error?.statusCode || 500, "addAttendanceDetails");

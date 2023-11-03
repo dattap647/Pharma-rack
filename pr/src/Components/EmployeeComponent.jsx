@@ -5,11 +5,11 @@ import CustomNavbar from './CustomNavbar';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { getRole, getToken } from '../auth/index';
-
+ 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3001',
 });
-
+ 
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = getToken();
@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
+ 
 // Function to format dates for the API request
 const formatDatesForApi = (dates) => {
   if (Array.isArray(dates)) {
@@ -51,16 +51,16 @@ const formatDatesForApi = (dates) => {
     if (!isNaN(parsedDate)) {
       return [parsedDate.toISOString()];
     } else {
-      return []; 
+      return [];
     }
   }
 };
-
+ 
 function EmployeeComponent() {
   const userRole = getRole();
   const [selectedDates, setSelectedDates] = useState([]);
   const [userEnteredTotalHours, setUserEnteredTotalHours] = useState(0);
-
+ 
   const handleSubmit = async () => {
     console.log("slected date ",selectedDates);
     try {
@@ -70,24 +70,24 @@ function EmployeeComponent() {
         toast.error('Please select at least one date.');
         return;
       }
-
+ 
       const requestData = {
         dates: formattedDates,
         logged_hours: userEnteredTotalHours,
       };
-
+ 
       try {
         await axiosInstance.post('/attendance-management/v1/user/attendance', requestData);
         toast.success('Data submitted successfully.');
       } catch (error) {
-        // toast.error(`Error submitting data: ${error.message}`);
-        toast.error("Error submitting data: Please Raise a Request For Manager!");
+        toast.error(`Error submitting data: ${error.message}`);
+        // toast.error("Error submitting data: Please Raise a Request For Manager!");
       }
     } catch (error) {
       toast.error('Error Formatting dates. Please select valid dates');
     }
   }
-
+ 
   return (
     <Container fluid>
       <CustomNavbar />
@@ -126,16 +126,18 @@ function EmployeeComponent() {
           &nbsp;&nbsp;
           <Button color='dark' className='ms-2 dark' href="/user/previousTimeCards" outline> Previous TimeCard </Button>
           &nbsp;&nbsp;
-          <Button className='ms-2 dark' color='dark' href="/user/managers" outline>Request Manager</Button>
+          <Button className='ms-2 dark' color='dark' href="/user/managers" outline>Change Manager</Button>
           &nbsp;&nbsp;
           {
-userRole===2?<Button className='ms-2 dark' color='dark' href="/user/managerDashboard" outline>Approve TimeCard</Button>:null
+userRole===2?<Button className='ms-2 dark' color='dark' href="/user/managerDashboard" outline>Approve Manager Request</Button>:null
           }
           &nbsp;&nbsp;{userRole===2?<Button className='ms-2 dark' color='dark' href="/user/allEmployee" outline>Manage Employees</Button>:null}
+          {/* <br /> */}
+          {userRole===2?<Button className='ms-2 dark' color='dark' href="/user/attendance" outline>Approve Attendance</Button>:null}
         </CardBody>
       </Card>
     </Container>
   );
 }
-
+ 
 export default EmployeeComponent;

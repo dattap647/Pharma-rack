@@ -2,7 +2,7 @@ const sendMail = require('./nodemailer');
 const CommonUtility = require('../utilities/common_utility');
 const momemt = require('moment');
 
-async function addAttendanceNotification(user_id, dates) {
+async function addAttendanceNotification(user_id, dates, uuid) {
     try {
         const commonUtility = new CommonUtility();
         const result = await commonUtility.getManagerEmail(user_id);
@@ -41,6 +41,9 @@ async function addAttendanceNotification(user_id, dates) {
               
               <p>To approve or reject this attendance record, please log in to the application and access the attendance management section.</p>
               <p>If you have any questions or concerns, please feel free to contact ${result?.user_name} directly.</p>
+              <br/>
+              <br/>
+              <div> <a href="http://localhost:3000/approve-attendance?status=Approved&token=${uuid}"> Approve </a> | <a href="http://localhost:3000/approve-attendance?status=Rejected&token=${uuid}"> Reject </a> </div>
             </div>
           </div>
         </body>
@@ -102,7 +105,7 @@ async function sendManagerAssignmentRequestNotification(user_id, manager_id) {
   }
 }
 
-async function registerUserNotification(user_id, manager_id) {
+async function registerUserNotification(user_id, manager_id, uuid) {
   try {
       const commonUtility = new CommonUtility();
       const user = await commonUtility.getUserByUserId(user_id);
@@ -140,6 +143,9 @@ async function registerUserNotification(user_id, manager_id) {
             <p>This is to inform you that ${user?.first_name} with email ${user?.email} has been register. Please review and approve or reject this user.</p>
             
             <p>To approve or reject this user, please log in to the application and approve or reject this user.</p>
+            <br/>
+            <br/>
+            <div> <a href="http://localhost:3000/approve-user?status=active&token=${uuid}"> Approve </a> | <a href="http://localhost:3000/approve-user?status=blocked&token=${uuid}"> Reject </a> </div>
           </div>
         </div>
       </body>
