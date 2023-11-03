@@ -11,9 +11,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import UserDashboard from './pages/UserDashboard';
 import PrivateRoute from './Components/PrivateRoute';
 import AllManagers from './pages/AllManagers';
-import ManagerDashboard from './pages/ManagerDashboard';
 import TimeCardViewer from './pages/TimeCardViewer';
-import AllEmployee from './pages/AllEmployee';
+import AllEmployee from './pages/ManageEmployee';
+import Attendance from './pages/Attendance';
+import ManageEmployee from './pages/ManageEmployee';
+import ManagerChangeRequest from './pages/ManagerChangeRequest';
 
 
 function App() {
@@ -31,8 +33,9 @@ function App() {
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="managers" element={<AllManagers />} />
           <Route path="previousTimeCards" element={<TimeCardViewer />} />
-          <Route path="managerDashboard" element={<ManagerDashboard />} />
-          <Route path="allEmployee" element={<AllEmployee />} />
+          <Route path="managerDashboard" element={<ManagerChangeRequest/>} />
+          <Route path="allEmployee" element={<ManageEmployee />} />
+          <Route path="attendance" element={<Attendance />} />
           </Route>
 
           

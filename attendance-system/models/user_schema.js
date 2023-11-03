@@ -33,7 +33,7 @@ const userSchema = {
             'any.only' : "Role ID must be 2 or 3"
         }),
         manager_id : Joi.when('role_id', {
-            is: 1,
+            is: 3,
             then: Joi.number().required().messages({
                 'number.base' : 'Manager ID must be a number',
                 'number.empty' : 'Manager ID is required',
@@ -131,7 +131,35 @@ const userSchema = {
             'string.required' : 'Status is required',
             'any.only' : 'Status must be Approved or Rejected'
         })
-    })
+    }),
+
+    approveUserByToken :   () => Joi.object().keys({
+        token : Joi.string().required().messages({
+            'string.base' : 'Token must be a string',
+            'string.empty' : 'Token is required',
+            'string.required' : 'Token is required',
+        }),
+        status : Joi.string().required().valid('active', 'blocked').messages({
+            'string.base' : 'Status must be a string',
+            'string.empty' : 'Status is required',
+            'string.required' : 'Status is required',
+            'any.only' : 'Status must be active or blocked'
+        })
+    }),
+
+    approveAttendanceByToken :   () => Joi.object().keys({
+        token : Joi.string().required().messages({
+            'string.base' : 'Token must be a string',
+            'string.empty' : 'Token is required',
+            'string.required' : 'Token is required',
+        }),
+        status : Joi.string().required().valid('Approved', 'Rejected').messages({
+            'string.base' : 'Status must be a string',
+            'string.empty' : 'Status is required',
+            'string.required' : 'Status is required',
+            'any.only' : 'Status must be Approved or Rejected'
+        })
+    }),
 }
 
 module.exports = userSchema ;

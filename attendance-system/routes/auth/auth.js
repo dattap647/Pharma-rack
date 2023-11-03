@@ -38,4 +38,30 @@ router.get("/manager-list", async (req, res) => {
     }
 })
 
+//Approve/Reject request by Token
+
+router.put('/approve-user', async (req, res) => {
+    try {
+        const auth = new Auth(req.params, req.body);
+        const result = await auth.approveUserByToken();
+        
+        return responseHandler.sendSuccessResponse(res, result);
+    } catch (error) {
+        responseHandler.logError(error);
+        return responseHandler.sendErrorResponse(res, error?.statusCode || 500, error?.message || error);
+    }
+})
+
+router.put('/approve-attendance', async (req, res) => {
+    try {
+        const auth = new Auth(req.params, req.body);
+        const result = await auth.approveAttendanceByToken();
+        
+        return responseHandler.sendSuccessResponse(res, result);
+    } catch (error) {
+        responseHandler.logError(error);
+        return responseHandler.sendErrorResponse(res, error?.statusCode || 500, error?.message || error);
+    }
+})
+
 module.exports = router;

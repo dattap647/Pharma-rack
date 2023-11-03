@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState ,useEffect} from 'react'
 import { getToken } from '../auth';
 import { toast } from 'react-toastify';
+import { Button } from 'reactstrap';
 
 const ActiveUser = ({user,key,handleUpdate}) => {
 
@@ -105,15 +106,12 @@ useEffect(() => {
         </td>
         <td>
     {edit? <div className='d-flex gap-1'>
-    
-        <button onClick={submitStatus}>save</button>
-        <button onClick={()=>setEdit(!edit)}>cancel</button>
+    <Button className='dark' onClick={submitStatus}   outline >save</Button>
+
+        <Button  onClick={()=>setEdit(!edit)}>cancel</Button>
         </div>
-        
-    
-        :<button onClick={()=>setEdit(!edit)}>edit</button>}
+        :<Button className="dark" onClick={()=>setEdit(!edit)}>edit</Button>}
         </td>
-        
       </tr>
   )
 }

@@ -36,7 +36,7 @@ const Login = () => {
     loginUser(loginDetail)
       .then((data) => {
         console.log('user login:');
-        console.log(data);
+        console.log("login user",data);
         // Save data to localStorage
         doLogin(data, () => {
           console.log('login detail saved to local storage');

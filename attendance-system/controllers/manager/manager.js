@@ -47,7 +47,7 @@ class Manager {
             let result = [];
             for(let i = 0; i < attendance_ids.length; i++){
                 const res = await commonUtility.updateattendanceRecords(attendance_ids[i], status);
-                if(res > 0){
+                if(res > 0 && res != 401){
                     result.push(`Attendace request with ID ${attendance_ids[i]} ${status}.`);
                     approveAttendanceNotification(attendance_ids[i], status);
                 } else if (res == 0) {
