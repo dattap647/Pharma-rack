@@ -5,6 +5,7 @@ import { Table,Button, Container, Label } from "reactstrap";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomNavbar from "../Components/CustomNavbar";
+import { formatDate } from "../utils/helper";
 
 
 const Attendance = () => {
@@ -91,14 +92,14 @@ const Attendance = () => {
               <th>User ID</th>
               <th>Date</th>
               <th>Status</th>
-              <th>Actions</th>
+            { status==="Pending"? <th>Actions</th>:null}
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user.attendance_id}>
                 <td>{user.user_id}</td>
-                <td>{user.date}</td>
+                <td>{formatDate(user.date)}</td>
                 <td>{user.status}</td>
                 <td>
                   {status === "Pending" && (

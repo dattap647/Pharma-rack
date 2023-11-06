@@ -30,11 +30,11 @@ function CustomNavbar(props) {
 
       <Container fluid>
 
-        <Navbar dark color="dark" expand="md">
+        <Navbar  color="info rounded-bottom-2" expand="md">
 
           <NavbarBrand href="/">PharmaRack</NavbarBrand>
 
-          <Nav className="me-auto" navbar>
+          <Nav className="me-auto " navbar>
 
             <NavItem>
 
@@ -47,7 +47,7 @@ function CustomNavbar(props) {
               login && (
                 <>
                 <NavItem>
-                <NavLink onClick={logout}>Logout</NavLink>
+                <NavLink  onClick={logout}>Logout</NavLink>
               </NavItem>
             
               {/* <NavItem>

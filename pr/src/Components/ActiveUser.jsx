@@ -1,3 +1,5 @@
+
+
 import axios from 'axios';
 import React, { useState ,useEffect} from 'react'
 import { getToken } from '../auth';
@@ -106,14 +108,16 @@ useEffect(() => {
         </td>
         <td>
     {edit? <div className='d-flex gap-1'>
-    <Button className='dark' onClick={submitStatus}   outline >save</Button>
+    <Button className='dark' onClick={submitStatus} color='success'  outline >Save</Button>
 
-        <Button  onClick={()=>setEdit(!edit)}>cancel</Button>
+        <Button  className="dark" onClick={()=>setEdit(!edit)} color='danger' outline>Cancel</Button>
         </div>
-        :<Button className="dark" onClick={()=>setEdit(!edit)}>edit</Button>}
+        :<Button className="dark" onClick={()=>setEdit(!edit)}>Edit</Button>}
         </td>
       </tr>
   )
 }
+
+
 
 export default ActiveUser
