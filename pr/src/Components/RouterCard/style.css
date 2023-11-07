@@ -1,0 +1,16 @@
+.router-card:hover:hover{
+    background-color: rgb(225, 245, 255);
+    
+    border-color:rgb(0, 140, 255);
+
+}
+
+
+.router-card h4{
+    font-size: 16px;
+    font-weight: 600;
+}
+.router-card p{
+    font-size: 12px;
+    font-weight: 500;
+}

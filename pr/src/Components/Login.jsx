@@ -70,12 +70,12 @@ const Login = () => {
          <MDBCardBody className='p-5  text-left'>
          <div className='d-flex flex-column justify-content-center align-items-center '>
          <FontAwesomeIcon icon={faUserAstronaut} style={{fontSize:'24px'}} />
-         <h3 className="fw-400 mb-3 " style={{letterSpacing: '1px'}}>Login Here</h3>
+         <h3 className="fw-bold mb-3 " style={{letterSpacing: '1px'}}>Login Here</h3>
          </div>
 
 
            <Form onSubmit={handleForSubmit}>
-           <MDBInput wrapperClass='mb-4'  size="lg" 
+           <MDBInput wrapperClass='mb-4'  size="lg" l
            label="Your Email"
            id="email"
            onChange={(e) => handleChange(e, "email")}
@@ -95,12 +95,12 @@ const Login = () => {
            wrapperClass='mb-4  ' 
             size="lg"/>
 
-           <Button className=" w-100 mb-3 " color='info'  type="submit" >Login</Button>
+           <Button className=" w-100 mb-3 fw-bold " style={{background:"#687EFF"}}  type="submit" >LOGIN</Button>
          
            </Form>
            <div className="d-flex flex-column align-items-center ">
            <p className=" mb-3 pb-lg-3 ms-5" onClick={handleForReset} ><a class="text-muted">Reset</a></p>
-           <p className='ms-5 '>Don't have an account? <a href="SignUp" class="link-info">Register here</a></p>
+           <p className='ms-5 '>Don't have an account? <a href="SignUp" style={{color:"#687EFF"}}>Register here</a></p>
            </div>
          
          </MDBCardBody></MDBCard>

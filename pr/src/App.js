@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import UserDashboard from './pages/UserDashboard';
 import PrivateRoute from './Components/PrivateRoute';
-import AllManagers from './pages/AllManagers';
+
 import TimeCardViewer from './pages/TimeCardViewer';
 import AllEmployee from './pages/ManageEmployee';
 import Attendance from './pages/Attendance';
@@ -31,7 +31,7 @@ function App() {
           <Route path="/user" element={<PrivateRoute />} >
           <Route path="employee" element={<EmployeeComponent />} />
           <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="managers" element={<AllManagers />} />
+          
           <Route path="previousTimeCards" element={<TimeCardViewer />} />
           <Route path="managerDashboard" element={<ManagerChangeRequest/>} />
           <Route path="allEmployee" element={<ManageEmployee />} />

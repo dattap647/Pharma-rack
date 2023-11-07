@@ -30,22 +30,20 @@ function CustomNavbar(props) {
 
       <Container fluid>
 
-        <Navbar  color="info rounded-bottom-2" expand="md">
+        <Navbar style={{ boxShadow:"2px 1px 5px lightblue"}} color=" rounded-bottom-2" expand="md">
 
-          <NavbarBrand href="/">PharmaRack</NavbarBrand>
+          <NavbarBrand href="/"  className='fw-bold fs-5' >PharmaRack</NavbarBrand>
 
-          <Nav className="me-auto " navbar>
-
-            <NavItem>
-
-              <NavLink href="/user/employee">TimeCard</NavLink>
-
-            </NavItem>
-          </Nav>
-          <Nav navbar>
+        
+          <Nav navbar className='fw-bold fs-6'>
             {
               login && (
                 <>
+                <NavItem>
+
+                <NavLink href="/user/employee" > Time Card</NavLink>
+  
+              </NavItem>
                 <NavItem>
                 <NavLink  onClick={logout}>Logout</NavLink>
               </NavItem>

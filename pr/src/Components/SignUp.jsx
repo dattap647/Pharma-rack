@@ -230,12 +230,12 @@ if(data.manager_id==""){
               )
             }</MDBRow>
             
-            <Button className='w-100  mb-4 ' color='info' size='md'>sign up</Button>
+            <Button className='w-100  mb-4 fw-bold ' style={{background:"#687EFF"}} size='md'>SIGN UP</Button>
             {/* <p className=" mb-3 pb-lg-3 ms-5" onClick={handleForReset} ><a class="text-muted">Reset</a></p>*/}
 </Form> 
 
             <div className="text-center">
-            <p className='ms-5 '>Already have an account? <a href="Login" class="link-info">Login </a></p>
+            <p className='ms-5 '>Already have an account? <a href="Login" style={{color:"#687EFF"}}>Login </a></p>
             </div>
           </MDBCardBody>
         </MDBCard>

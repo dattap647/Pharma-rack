@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { getToken } from "../auth/index";
-import { Table,Button, Container, Label } from "reactstrap";
+import { Table,Button, Container, Label, Input } from "reactstrap";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CustomNavbar from "../Components/CustomNavbar";
 import { formatDate } from "../utils/helper";
+import CustomButton from "../Components/CustomButton";
 
 
 const Attendance = () => {
@@ -72,17 +73,30 @@ const Attendance = () => {
         <CustomNavbar />
         <Container>
         <h2 className="mt-5 d-flex justify-content-center">Attendance Approval</h2>
-      <Label>
-        Status: 
-        &nbsp;&nbsp;
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="Select Status">Select Status</option>
-          <option value="Pending">Pending</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
 
-        </select>
-      </Label>
+
+        <div className="d-flex justify-content-between mt">
+
+        <div className="d-flex gap-2  justify-content-between align-items-baseline ">
+        <Label className='fw-bold'>
+        Status:</Label>
+        
+        <Input type="select" value={status} onChange={(e) => setStatus(e.target.value)}>
+        <option value="Select Status">Select Status</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+
+      </Input>
+      
+        </div>
+
+        <CustomButton color='black' bgcolor='white' name={"Back"} href="/user/employee" />
+        
+
+        </div>
+
+      
       <br />
 
       {users.length > 0 && (
@@ -120,7 +134,7 @@ const Attendance = () => {
         {response}
       </p>}
       <br />
-      <Button className='ms-2 dark' href="/user/employee" outline>Return to Home</Button>
+
         </Container>
     </div>
   );
