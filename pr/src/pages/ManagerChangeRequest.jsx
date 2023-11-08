@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { getToken } from '../auth';
 import axios from 'axios';
 import CustomNavbar from '../Components/CustomNavbar';
-import { Button, Container, Label, Table } from 'reactstrap';
+import { Button, Container, Input, Label, Table } from 'reactstrap';
 import { formatDate } from '../utils/helper';
 import { toast } from 'react-toastify';
+import CustomButton from '../Components/CustomButton';
 
 const ManagerChangeRequest = () => {
     const [status, setStatus] = useState("Pending"); 
@@ -71,18 +72,28 @@ const ManagerChangeRequest = () => {
       <div>
           <CustomNavbar />
           <Container>
-          <h2 className="mt-5 d-flex justify-content-center">Manager Change Request</h2>
-        <Label>
-          Status: 
-          &nbsp;&nbsp;
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <h2 className="my-4 text-center">Manager Change Request</h2>
+
+          <div className="d-flex justify-content-between mt">
+
+          <div className="d-flex gap-2  justify-content-between align-items-baseline ">
+          <Label className='fw-bold '>
+          Status:</Label>
+          <Input type='select' value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="Select Status">Select Status</option>
             <option value="Pending">Pending</option>
             <option value="Approved">Approved</option>
             <option value="Rejected">Rejected</option>
   
-          </select>
-        </Label>
+          </Input>
+        
+          </div>
+
+          <CustomButton color='black' bgcolor='white' name={"Back"} href="/user/employee" />
+          
+
+          </div>
+      
         <br />
   
         {users.length > 0 && (
@@ -133,7 +144,7 @@ const ManagerChangeRequest = () => {
           {response}
         </p>}
         <br />
-        <Button className='ms-2 dark' href="/user/employee" outline>Return to Home</Button>
+       
           </Container>
       </div>
     );

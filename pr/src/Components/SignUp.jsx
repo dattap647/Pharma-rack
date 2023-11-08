@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button, CardHeader, Container, CardBody, Form, Input, Label } from 'reactstrap';
 import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import CustomNavbar from "./CustomNavbar";
 import { signUp } from "../auth/user-service";
 import { toast } from "react-toastify";
@@ -60,6 +60,22 @@ const SignUp = () => {
     }
   };
 
+  const handleForReset = () => {
+    setData({
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      role_id: '3', // Default role selection 3-user 2-manager 
+      manager_id: '', // Initialize manager_id
+      managerList: [],
+    })
+    if (data.role_id === '3') {
+      // Fetch the list of managers when the role is 'User'
+      fetchManagerList();
+      
+    }
+  }
   const submitForm = (event) => {
     event.preventDefault();
 
@@ -69,7 +85,10 @@ const SignUp = () => {
     }
 
     console.log(data);
-
+if(data.manager_id==""){
+  toast.info("Please select the Manager")
+  return
+}
     signUp(data).then((resp) => {
       console.log(resp);
       console.log("Success log");
@@ -77,37 +96,23 @@ const SignUp = () => {
       navigate('/login');
 
     }).catch((error) => {
-      console.log(error);
       console.log("Error log",error);
-      //  toast.error(error);
-      setError({
-        errors: error,
-        isError: true
-      });
+       // setError({
+      //   errors: error.response.data.error,
+      //   isError: true
+      // });
+
+      //multiple error are coming in array ,seperate and display along each error individual
+      const msg=error.response.data.error.split('CustomError:')[1]
+      const msgArray=msg.split(';');
+      {msgArray.map((m)=>(toast.error(m)))}
     })
     .finally(()=>{
-      setError({
-        errors: {},
-        isError: false
-      });
-      handleReset()
+      handleForReset()
     }
   );
   }
-  const handleReset=()=>{
-    setData({ first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    role_id: '3', // Default role selection 3-user 2-manager 
-    manager_id: '', // Initialize manager_id
-    managerList: [],})
-    if (data.role_id === '3') {
-      // Fetch the list of managers when the role is 'User'
-      fetchManagerList();
-      
-    }
-  }
+
   const handleChange = (event, property) => {
     if (property === 'role_id') {
       const selectedRole = event.target.value;
@@ -143,110 +148,107 @@ const SignUp = () => {
     }
   };
   return (
-    <MDBContainer fluid className='p-2'>
-      <CustomNavbar />
-      <MDBRow>
-        <MDBCol md='4' className='position-relative' style={{ marginRight: "10%" }}>
-          <div id="radius-shape-1" className="position-absolute rounded-circle shadow-5-strong"></div>
-          <div id="radius-shape-2" className="position-absolute shadow-5-strong"></div>
-          <MDBCard className='my-5 bg-glass cardStyle' style={{ height: "90%" }}>
-            <CardHeader>
-              <h4 className="center">Hey User!</h4>
-              <h3 className="center">Sign Up Here</h3>
-              <FontAwesomeIcon icon={faUserAstronaut} style={{ fontSize: '24px' }} />
-            </CardHeader>
-            <MDBCardBody className='p-2'>
-              <CardBody>
-                <Form onSubmit={submitForm}>
-                  <Label htmlFor="first_name">First Name</Label>
-                  <br></br>
-                  <Input
-                    type="text"
-                    placeholder="Enter First Name"
-                    id="first_name"
-                    onChange={(e) => handleChange(e, 'first_name')}
-                    value={data.first_name}
-                    className="inputLogin"
-                  />
-                  <br></br>
-                  <Label htmlFor="last_name"> Last Name</Label>
-                  <br></br>
-                  <Input
-                    type="text"
-                    placeholder="Enter Last Name"
-                    id="last_name"
-                    onChange={(e) => handleChange(e, 'last_name')}
-                    value={data.last_name}
-                    className="inputLogin"
-                  />
-                  <br></br>
-                  <Label htmlFor="email"> Email</Label>
-                  <br></br>
-                  <Input
-                    type="email"
-                    placeholder="Enter email"
-                    id="email"
-                    onChange={(e) => handleChange(e, 'email')}
-                    value={data.email}
-                    className="inputLogin"
-                  />
-                  <br></br>
-                  <Label htmlFor="password">Password</Label>
-                  <br></br>
-                  <Input
-                    type="password"
-                    placeholder="Enter Password"
-                    id="password"
-                    onChange={(e) => handleChange(e, 'password')}
-                    value={data.password}
-                    className="inputLogin"
-                  />
-                  <br></br>
-                  <Label htmlFor="role_id">Select Role</Label>
-                  <br></br>
-                  <select
-                    value={roles}
-                    onChange={(e) => handleChange(e,'role_id')}
-                    id="role_id"
-                  >
-                    <option value="User">User</option>
-                    <option value="Manager">Manager</option>
-                  </select>
-                  <br></br>
-                  {roles === 'User' && (
-                    <div>
-                      <Label htmlFor="selectedManager">Select Manager</Label>
-                      <br></br>
-                      <select
-                        value={data.selectedManager}
+    <MDBContainer fluid  >
+     <CustomNavbar />
+
+    <MDBRow className='g-1 align-items-center mx-2 my-2'>
+      <MDBCol col='6' >
+
+        <MDBCard  >
+          <MDBCardBody className='p-5 shadow-5 text-left'>
+          <center>
+          <h4 className="center">Hey User!</h4>
+          <h2 className="fw-bold mb-3">Sign up now</h2>
+          <FontAwesomeIcon icon={faUserAstronaut} style={{ fontSize: '24px', marginBottom:"10px"}} />
+          </center>
+          <Form onSubmit={submitForm}>
+            <MDBRow>
+              <MDBCol col='6'>
+                <MDBInput wrapperClass='mb-4' label='First name' id='first_name' type='text' y onChange={(e) => handleChange(e, 'first_name')}
+                value={data.first_name} required/>
+              </MDBCol>
+
+              <MDBCol col='6'>
+                <MDBInput wrapperClass='mb-4' label='Last name' 
+                type='text'
+                id="last_name"
+                onChange={(e) => handleChange(e, 'last_name')}
+                value={data.last_name}
+                required
+                />
+              </MDBCol>
+            </MDBRow>
+
+            <MDBInput wrapperClass='mb-4' label='Email' type='email'
+            required
+            id="email"
+            onChange={(e) => handleChange(e, 'email')}
+            value={data.email}
+          
+            />
+            <MDBInput wrapperClass='mb-4' label='Password'   
+            required 
+            type="password"
+            id="password"
+            onChange={(e) => handleChange(e, 'password')}
+            value={data.password}/>
+
+            <MDBRow className="mb-5">
+
+            <MDBCol>
+            <Input 
+            name="selectRole"
+            type="select"
+            value={roles}
+            onChange={(e) => handleChange(e,'role_id')}
+            id="role_id"
+            
+            >
+            <option value="User">User</option>
+            <option value="Manager">Manager</option>
+            </Input>
+            </MDBCol>
+            {
+              roles==='User' &&(
+               <MDBCol>
+                <Input 
+                name="selectManager"
+                type="select"
+                value={data.selectedManager}
                         onChange={(e) => handleChange(e, 'selectedManager')}
-                        id="selectedManager"
-                      >
+                        id="selectedManager">
                         <option value="">Select a Manager</option>
                         {data.managerList.map((manager) => (
                           <option key={manager.user_id} value={manager.user_id}>
                             {manager.first_name}  {manager.last_name}
                           </option>
                         ))}
-                      </select>
-                    </div>
-                  )}
-                  <br></br>
-                  <Container className="text-center">
-                    <br></br>
-                    <Button color="dark" className="btnLogin">Register</Button>
-                    <Button color="secondary" className="ms-2 btnLogin" type="reset" value="Reset" >Reset</Button>
-                  </Container>
-                </Form>
-              </CardBody>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-        <MDBCol md='6' className='text-center text-md-start d-flex flex-column justify-content-center'>
-          <img src={require('./signUpImg.jpg')} alt="medium" height="400px" width="650px" />
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+                </Input>
+                </MDBCol>
+
+
+              )
+            }</MDBRow>
+            
+            <Button className='w-100  mb-4 fw-bold ' style={{background:"#687EFF"}} size='md'>SIGN UP</Button>
+            {/* <p className=" mb-3 pb-lg-3 ms-5" onClick={handleForReset} ><a class="text-muted">Reset</a></p>*/}
+</Form> 
+
+            <div className="text-center">
+            <p className='ms-5 '>Already have an account? <a href="Login" style={{color:"#687EFF"}}>Login </a></p>
+            </div>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+
+      <MDBCol col='6'>
+        <img src={require('./signUpImg.jpg')}  class="w-100 rounded-4"
+          alt="" fluid/>
+      </MDBCol>
+
+    </MDBRow>
+
+  </MDBContainer>
   );
 }
 

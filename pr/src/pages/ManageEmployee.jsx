@@ -6,6 +6,7 @@ import axios from 'axios'
 import { getToken } from '../auth'
 import { MDBIcon } from 'mdb-react-ui-kit'
 import ActiveUser from '../Components/ActiveUser'
+import CustomButton from '../Components/CustomButton'
 
 const ManageEmployee = () => {
 const [userlist,setUserList]=useState([])
@@ -51,46 +52,34 @@ const handleUpdate=()=>{
   return (
     <Container fluid>
     <CustomNavbar/>
-    
-    <Card className='mt-5'>
+    <div className="d-flex mt-3 mr-3 mx-3 justify-content-end">
+    <CustomButton color='black' bgcolor='white' name={"Back"} href="/user/employee" />
+    </div>
+    <Card className='my-2 mx-3'>
     <CardBody>
-    <CardTitle className='d-flex justify-content-center h5'>
-    All Employee
+    <CardTitle className='text-center h5'>
+    <h3>All Employee</h3>
     </CardTitle>
     
-    <Table size="sm">
-  <thead>
-    <tr>
-      <th>
-        Name
-      </th>
-      <th>
-        Email
-      </th>
-      <th>
-        Status
-      </th>
-      <th>
-        Action
-      </th>
-    
-    </tr>
-  </thead>
-  <tbody>
+    <div className="row mx-4" >
+    <div className="col fs-5 fw-bold">Name
+    </div>
+    <div className="col fs-5 fw-bold">Email</div>
+    <div className="col fs-5 fw-bold">Status</div>
+    <div className="col fs-5 fw-bold">Action</div>
+    <hr className='mx-2 my-2'/>
+    </div>
 {
     userlist.map((user)=>{
        return <ActiveUser user={user} key={user.user_id} handleUpdate={handleUpdate}/>
 
     })
 }
-   
-  </tbody>
-</Table>
+
 
     </CardBody>
   
     </Card>
-   &nbsp;&nbsp;&nbsp; <Button className='mt-4 dark  ' href="/user/employee" outline >Return to Home</Button>
     </Container>
   )
 }
