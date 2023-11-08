@@ -6,7 +6,6 @@ import { getToken } from '../auth';
 import { toast } from 'react-toastify';
 import { Button, Input } from 'reactstrap';
 
-
 const ActiveUser = ({user,key,handleUpdate}) => {
 
 const [data,setData]=useState({
