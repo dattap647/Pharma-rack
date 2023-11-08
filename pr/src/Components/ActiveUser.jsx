@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useState ,useEffect} from 'react'
 import { getToken } from '../auth';
 import { toast } from 'react-toastify';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 
 const ActiveUser = ({user,key,handleUpdate}) => {
 
@@ -76,18 +76,19 @@ useEffect(() => {
 
 
   return (
-    <tr key={key}>
-        <td>
+    <div className='row mx-4 my-2' key={key}>
+        <div className='col mt-3 '>
           {user.first_name}
-        </td>
-        <td>
+        </div>
+        <div className='col mt-3'>
         {user.email}
-        </td>
-        <td>
-        { edit?
-            
-            <select
-            value={data.status}
+        </div>
+        {
+          edit? <div className='col'>
+          <Input type='select'
+
+            className='w-50'           
+             value={data.status}
              onChange={(e) => handleChange(e)}
         
           >
@@ -98,23 +99,21 @@ useEffect(() => {
               {s.status}
             </option>
           ))}
-
-
-
-          </select>
-            
-            
-            :user.status}
-        </td>
-        <td>
+          </Input>
+          </div>:
+          <div className='col mt-3'>
+          {user.status}
+          </div>
+        }
+        <div  className='col'>
     {edit? <div className='d-flex gap-1'>
     <Button className='dark' onClick={submitStatus} color='success'  outline >Save</Button>
 
         <Button  className="dark" onClick={()=>setEdit(!edit)} color='danger' outline>Cancel</Button>
         </div>
         :<Button className="dark" onClick={()=>setEdit(!edit)}>Edit</Button>}
-        </td>
-      </tr>
+        </div>
+      </div >
   )
 }
 

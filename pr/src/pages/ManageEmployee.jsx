@@ -61,34 +61,21 @@ const handleUpdate=()=>{
     <h3>All Employee</h3>
     </CardTitle>
     
-    <Table size="sm">
-  <thead>
-    <tr>
-      <th>
-        Name
-      </th>
-      <th>
-        Email
-      </th>
-      <th>
-        Status
-      </th>
-      <th>
-        Action
-      </th>
-    
-    </tr>
-  </thead>
-  <tbody>
+    <div className="row mx-4" >
+    <div className="col fs-5 fw-bold">Name
+    </div>
+    <div className="col fs-5 fw-bold">Email</div>
+    <div className="col fs-5 fw-bold">Status</div>
+    <div className="col fs-5 fw-bold">Action</div>
+    <hr className='mx-2 my-2'/>
+    </div>
 {
     userlist.map((user)=>{
        return <ActiveUser user={user} key={user.user_id} handleUpdate={handleUpdate}/>
 
     })
 }
-   
-  </tbody>
-</Table>
+
 
     </CardBody>
   
