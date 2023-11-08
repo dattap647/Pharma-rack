@@ -6,6 +6,7 @@ import axios from 'axios'
 import { getToken } from '../auth'
 import { MDBIcon } from 'mdb-react-ui-kit'
 import ActiveUser from '../Components/ActiveUser'
+import CustomButton from '../Components/CustomButton'
 
 const ManageEmployee = () => {
 const [userlist,setUserList]=useState([])
@@ -51,11 +52,13 @@ const handleUpdate=()=>{
   return (
     <Container fluid>
     <CustomNavbar/>
-    
-    <Card className='mt-5'>
+    <div className="d-flex mt-3 mr-3 mx-3 justify-content-end">
+    <CustomButton color='black' bgcolor='white' name={"Back"} href="/user/employee" />
+    </div>
+    <Card className='my-2 mx-3'>
     <CardBody>
-    <CardTitle className='d-flex justify-content-center h5'>
-    All Employee
+    <CardTitle className='text-center h5'>
+    <h3>All Employee</h3>
     </CardTitle>
     
     <Table size="sm">
@@ -90,7 +93,6 @@ const handleUpdate=()=>{
     </CardBody>
   
     </Card>
-   &nbsp;&nbsp;&nbsp; <Button className='mt-4 dark  ' href="/user/employee" outline >Return to Home</Button>
     </Container>
   )
 }

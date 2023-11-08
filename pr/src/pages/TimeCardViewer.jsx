@@ -3,9 +3,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { getToken } from '../auth/index';
-import { MDBContainer } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import CustomNavbar from '../Components/CustomNavbar';
-import { Button, Label } from 'reactstrap';
+import { Button, Label, Table } from 'reactstrap';
+import CustomButton from '../Components/CustomButton';
 
 function TimeCardViewer() {
   const [from_date, setFromDate] = useState(null);
@@ -67,66 +68,85 @@ function TimeCardViewer() {
   }
 
   return (
-    <div>
+    <MDBContainer fluid className='mx-5'>
     <CustomNavbar />
     <MDBContainer>
+<MDBCard className='mt-4'>
+<MDBCardBody>
+<center className='h4 fw-bold'>Time Card Viewer</center>
 
-      <div className='mt-2'>
-      <h1>Time Card Viewer</h1>
-      </div>
-      <div className='mt-4'>
-        <Label>From Date:</Label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<hr className='mx-5'/> 
+<MDBRow className='mx-5'>
+<MDBCol >
+<div className="form-group d-flex flex-column align-items-start gap-1">
+<Label className='fw-bold fs-6'>From Date</Label>
         <DatePicker
           selected={from_date}
           
           onChange={(date) => handleDateChange(date, 'from')}
         />
-      </div>
-      <div>
-        <Label>To Date:</Label>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <DatePicker
-          selected={to_date}
-          onChange={(date) => handleDateChange(date, 'to')}
-          
-          maxDate={new Date()}
-        />
-      </div>
-      <br />
+</div>
+</MDBCol>
+
+<MDBCol >
+<div className="form-group d-flex flex-column align-items-start gap-1">
+<Label className='fw-bold fs-6'>To Date</Label>
+<DatePicker
+  selected={to_date}
+  onChange={(date) => handleDateChange(date, 'to')}
+  
+  maxDate={new Date()}
+/>
+</div>
+</MDBCol>
+</MDBRow>
+
+<div className='d-flex   ' style={{margin:"30px 58px"}}>
+<CustomButton onClick={fetchTimeCards}  name={"Fetch Time Cards"} />
+<CustomButton bgcolor='white' name={"Back"} color='black' href='/user/employee'/>
+
+          </div>
+</MDBCardBody>
+
+</MDBCard>
+    
      
-      <div >
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <Button onClick={fetchTimeCards} className='dark' outline disabled={loading}>Fetch Time Cards</Button>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-     
-      <Button className='ms-2 dark' href="/user/employee" outline disabled={loading}>Return to Home</Button>
-      
-      </div>
       {timeCards.length > 0 &&  (
-        <div>
-          <h2>Time Cards</h2>
+        <div className='card my-5'>
+      
+          <h3 className='text-center mt-4'>Time Cards</h3>
+          <hr className='mx-5'/>
+
+          <div className="container">
+          <div className="row mx-5 mb-4 ">
+          <div className="col fs-5 fw-bold ">Date</div>
+          <div className="col fs-5 fw-bold ">Status</div>
+          <div className="col fs-5 fw-bold ">Total Hours</div>
+          </div>
           {timeCards.map((card) => (
-            <div key={card.attendance_id} className="card">
-              <h3>Date: {new Date(card.date).toLocaleDateString()}</h3>
-              <p>Status: {card.status}</p>
-              <p>Total Hours: {card.total_hours}</p>
+            <div key={card.attendance_id} className="row mx-5 mb-1 border-bottom">
+              <p className='col'>{new Date(card.date).toLocaleDateString()}</p>
+              <p className='col'>{card.status}</p>
+              <p className='col'>{card.total_hours}</p>
+              
             </div>
           ))}
+         
+          </div>
         </div>
       )}
       
       {
         showdata?
-        ( <div className=" d-flex  align-item-center  mt-5 px-5 " style={{fontSize:20, fontWeight:600 , color:"grey"}}>
-      <div className="">
-      <p>No Data found</p>
-      </div>
+        ( 
+      <p className="text-center my-5" style={{fontSize:20, fontWeight:600 , color:"grey"}}>No Data found</p>
+    
       
-      </div>):null}
+      ):null}
     
     
     </MDBContainer>
-    </div>
+    </MDBContainer>
   );
 }
 
