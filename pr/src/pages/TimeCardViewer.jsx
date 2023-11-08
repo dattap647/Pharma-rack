@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getToken } from '../auth/index';
 import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import CustomNavbar from '../Components/CustomNavbar';
-import { Button, Label, Table } from 'reactstrap';
+import {  Label } from 'reactstrap';
 import CustomButton from '../Components/CustomButton';
 
 function TimeCardViewer() {

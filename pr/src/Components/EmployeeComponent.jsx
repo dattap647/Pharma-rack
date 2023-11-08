@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button,  Input } from 'reactstrap';
+import { Input } from 'reactstrap';
 import DatePicker from 'react-multi-date-picker';
 import CustomNavbar from './CustomNavbar';
 import { toast } from 'react-toastify';
@@ -101,7 +101,7 @@ function EmployeeComponent() {
       <MDBContainer>
       <MDBCard className='mt-4'>
       <MDBCardBody>
-      <center className='h5 '>Employee Timesheet</center>
+      <h2 className='text-center '>Employee Timesheet</h2>
       <hr className='mx-5'/>
       <MDBRow className='mx-5'>
       <MDBCol col="6">
