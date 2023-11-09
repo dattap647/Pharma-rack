@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Button,Form, Input,  } from 'reactstrap';
+import { Button, CardHeader, Container, CardBody, Form, Input, Label } from 'reactstrap';
 import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
@@ -85,7 +85,7 @@ const SignUp = () => {
     }
 
     console.log(data);
-if(data.manager_id===""){
+if(data.manager_id==""){
   toast.info("Please select the Manager")
   return
 }

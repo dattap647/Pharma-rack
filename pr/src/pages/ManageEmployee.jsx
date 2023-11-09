@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import {Card, CardBody, CardTitle, Container, } from 'reactstrap'
+import { Button, Card, CardBody, CardTitle, Col, Container, Row, Table } from 'reactstrap'
 
 import CustomNavbar from '../Components/CustomNavbar'
 import axios from 'axios'
 import { getToken } from '../auth'
+import { MDBIcon } from 'mdb-react-ui-kit'
 import ActiveUser from '../Components/ActiveUser'
 import CustomButton from '../Components/CustomButton'
 
@@ -59,6 +60,7 @@ const handleUpdate=()=>{
     <CardTitle className='text-center h5'>
     <h3>All Employee</h3>
     </CardTitle>
+    
     <div className="row mx-4" >
     <div className="col fs-5 fw-bold">Name
     </div>
@@ -67,14 +69,16 @@ const handleUpdate=()=>{
     <div className="col fs-5 fw-bold">Action</div>
     <hr className='mx-2 my-2'/>
     </div>
-<div style={{height:"550px", overflow:"auto",overflowWrap:"anywhere", }}>
-  {
-  userlist.map((user)=>{
-     return <ActiveUser user={user} key={user.user_id} handleUpdate={handleUpdate}/>
+{
+    userlist.map((user)=>{
+       return <ActiveUser user={user} key={user.user_id} handleUpdate={handleUpdate}/>
 
-  })}
-  </div>
+    })
+}
+
+
     </CardBody>
+  
     </Card>
     </Container>
   )

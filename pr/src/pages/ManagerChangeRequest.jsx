@@ -6,11 +6,10 @@ import { Button, Container, Input, Label, Table } from 'reactstrap';
 import { formatDate } from '../utils/helper';
 import { toast } from 'react-toastify';
 import CustomButton from '../Components/CustomButton';
-import { MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
-import FilterStatus from '../Components/FilterStatus';
 
 const ManagerChangeRequest = () => {
     const [status, setStatus] = useState("Pending"); 
+    const [response, setResponse] = useState(null);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -33,12 +32,13 @@ const ManagerChangeRequest = () => {
             },
           }
         );
-    
-        setUsers(response.data.data.filter(u=>u.status===status))
+        setUsers(response.data.data);
+        fetchUsers();
       } catch (error) {
         console.error("Error:", error);
       }
     };
+  
     const handleApproveReject = async (userId,status) => {
       try {
         const token = getToken();
@@ -56,60 +56,95 @@ const ManagerChangeRequest = () => {
           }
         );
         if (response.data.success) {
-          console.log(response);
-          status==="Rejected"?toast.error(response.data.data):toast.success(response.data.data)
+            console.log(response.data.data);
+          toast.success(response)
+          setResponse(response.data.data);
           fetchUsers(); 
         } 
       // After updating, re-fetch users
       } catch (error) {
-        toast.error(error.response.data.error.split('CustomError:')[1]);
+        console.error("Error:", error);
+        setResponse("Error: Attendance request could not be approved.");
       }
     };
+  
     return (
       <div>
           <CustomNavbar />
           <Container>
           <h2 className="my-4 text-center">Manager Change Request</h2>
-         <FilterStatus  status={status} setStatus={setStatus}/>  
-  <MDBCard>
-  <MDBCardBody>
-  {users.length > 0 ? (
-    <Table borderless>
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Request Date</th>
-          {status==="Approved"?<th>Approval date</th>:null}
-          <th>Status</th>
-         {status==="Pending" ?<th>Actions</th>:null} 
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) => {
-          if(user.status===status){
-              return <tr key={user.id}>
-              <td>{user.user_id}</td>
-              <td>{formatDate(user.request_date)}</td>
-              {user.status==="Approved"? <td>{formatDate(user.approval_date)}</td>:null}
-              <td>{user.status}</td>
-              {user.status==="Pending"?
-              <td>
-              <CustomButton onClick={() => handleApproveReject(user.id, "Approved")} name={"Approve"}/>
-              <CustomButton onClick={() => handleApproveReject(user.id, "Rejected")} name={"Reject"} bgcolor='red'/>
-                </td>
-                :null 
-             }
-            </tr>
-          }
-        }
-        )
-      }
-      </tbody>
-    </Table>
-  ):<p className='text-center my-4 fs-5 fw-bold'>No {status} Request</p>
-}
-  </MDBCardBody>
-  </MDBCard>
+
+          <div className="d-flex justify-content-between mt">
+
+          <div className="d-flex gap-2  justify-content-between align-items-baseline ">
+          <Label className='fw-bold '>
+          Status:</Label>
+          <Input type='select' value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="Select Status">Select Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+  
+          </Input>
+        
+          </div>
+
+          <CustomButton color='black' bgcolor='white' name={"Back"} href="/user/employee" />
+          
+
+          </div>
+      
+        <br />
+  
+        {users.length > 0 && (
+          <Table striped>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Request Date</th>
+                {status==="Approved"?<th>Approval date</th>:null}
+                <th>Status</th>
+               {status==="Pending" ?<th>Actions</th>:null} 
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => {
+                if(user.status===status){
+                    return <tr key={user.id}>
+                    <td>{user.user_id}</td>
+                    <td>{formatDate(user.request_date)}</td>
+                    {user.status==="Approved"? <td>{formatDate(user.approval_date)}</td>:null}
+                    <td>{user.status}</td>
+                    {user.status==="Pending"?
+                    <td>
+                    <Button onClick={() => handleApproveReject(user.id, "Approved")} outline>Approve</Button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <Button onClick={() => handleApproveReject(user.id, "Rejected")} outline>Reject</Button>
+                      </td>
+                      :null 
+                   }
+                  
+                  </tr>
+
+                }
+            
+
+              }
+                
+             
+              )
+            
+            }
+
+            </tbody>
+          </Table>
+        )}
+        {response && 
+        <p>
+          {response}
+        </p>}
+        <br />
+       
           </Container>
       </div>
     );

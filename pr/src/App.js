@@ -1,6 +1,7 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import './App.css';
 import { Container } from 'reactstrap';
+import CustomNavbar from './Components/CustomNavbar';
 import EmployeeComponent from './Components/EmployeeComponent';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
@@ -9,7 +10,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import UserDashboard from './pages/UserDashboard';
 import PrivateRoute from './Components/PrivateRoute';
+
 import TimeCardViewer from './pages/TimeCardViewer';
+import AllEmployee from './pages/ManageEmployee';
 import Attendance from './pages/Attendance';
 import ManageEmployee from './pages/ManageEmployee';
 import ManagerChangeRequest from './pages/ManagerChangeRequest';
