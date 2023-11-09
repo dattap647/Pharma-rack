@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import { getToken } from '../auth/index';
 import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import CustomNavbar from '../Components/CustomNavbar';
-import { Button, Label, Table } from 'reactstrap';
+import {  Label } from 'reactstrap';
 import CustomButton from '../Components/CustomButton';
+import DatePicker from 'react-multi-date-picker';
+import { formatDatesForApi } from '../utils/helper';
 
 function TimeCardViewer() {
   const [from_date, setFromDate] = useState(null);
@@ -14,6 +16,9 @@ function TimeCardViewer() {
   const [timeCards, setTimeCards] = useState([]);
   const [showdata,setShowNodata]=useState(false)
   const [loading,setLoading]=useState(false)
+
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = formatDatesForApi(dateRange);
 
   const handleDateChange = (date, dateType) => {
     if (dateType === 'from') {
@@ -24,8 +29,9 @@ function TimeCardViewer() {
   };
 
   const fetchTimeCards = async () => {
-    
- 
+    let v=formatDatesForApi(dateRange[0])
+ console.log("strat date",startDate);
+ console.log("end date",endDate);
 
     try {
       const token = getToken();
@@ -34,12 +40,12 @@ function TimeCardViewer() {
         return;
       }
 
-      if (!from_date || !to_date) {
+      if (!startDate || !endDate) {
         console.error('Please select both from date and to date');
         return;
       }
 
-      const apiUrl = `http://localhost:3001/attendance-management/v1/user/attendance/${from_date}/${to_date}`;
+      const apiUrl = `http://localhost:3001/attendance-management/v1/user/attendance/${startDate}/${endDate}`;
       const response = await axios.get(apiUrl, {
         headers: {
           Authorization: `${token}`,
@@ -76,32 +82,28 @@ function TimeCardViewer() {
 <center className='h4 fw-bold'>Time Card Viewer</center>
 
 <hr className='mx-5'/> 
-<MDBRow className='mx-5'>
-<MDBCol >
-<div className="form-group d-flex flex-column align-items-start gap-1">
-<Label className='fw-bold fs-6'>From Date</Label>
-        <DatePicker
-          selected={from_date}
-          
-          onChange={(date) => handleDateChange(date, 'from')}
-        />
-</div>
-</MDBCol>
+<Label className='fw-bold fs-6 mx-5'>Select Date</Label>
+<div className='mx-5'>
+ <DatePicker
+ style={{ padding:"15px"}}
+ format="DD-MM-YYYY"
+ value={dateRange}
+ maxDate={new Date()}
+ weekPicker
+ calendarPosition='right'
+ showOtherDays
+ dateSeparator=' to '
+   onChange={(update) => {
+       setDateRange(update);
+     }}
+ />
 
-<MDBCol >
-<div className="form-group d-flex flex-column align-items-start gap-1">
-<Label className='fw-bold fs-6'>To Date</Label>
-<DatePicker
-  selected={to_date}
-  onChange={(date) => handleDateChange(date, 'to')}
-  
-  maxDate={new Date()}
-/>
-</div>
-</MDBCol>
-</MDBRow>
 
-<div className='d-flex   ' style={{margin:"30px 58px"}}>
+
+
+</div>
+
+<div className='d-flex' style={{margin:"30px 38px"}}>
 <CustomButton onClick={fetchTimeCards}  name={"Fetch Time Cards"} />
 <CustomButton bgcolor='white' name={"Back"} color='black' href='/user/employee'/>
 
