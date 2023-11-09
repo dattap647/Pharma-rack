@@ -32,15 +32,13 @@ axiosInstance.interceptors.request.use(
 );
  
 function EmployeeComponent() {
-  const userRole = getRole();
-  const [selectedDates, setSelectedDates] = useState([]);
-      
+  const userRole = getRole();      
 const [dates, setDates] = useState([])
 const [allDates, setAllDates] = useState([])
   const [userEnteredTotalHours, setUserEnteredTotalHours] = useState(0);
   const [modal,setModal]=useState(false)
   const handleSubmit = async () => {
-    console.log("slected date ",selectedDates);
+  
     try {
       const formattedDates = formatDatesForApi(allDates);
       console.log("Selected Dates:::: ",formattedDates);
@@ -58,6 +56,8 @@ const [allDates, setAllDates] = useState([])
       try {
         await axiosInstance.post('/attendance-management/v1/user/attendance', requestData);
         toast.success('Data submitted successfully.');
+        setDates([]);
+    setAllDates([]);
       } catch (error) {
         toast.error(`Error submitting data: ${error.message}`);
         // toast.error("Error submitting data: Please Raise a Request For Manager!");
@@ -90,7 +90,7 @@ const [allDates, setAllDates] = useState([])
       style={{ height:"38px"}}
       range
       rangeHover
-      calendarPosition="right"
+  
       value={dates}
       maxDate={new DateObject()}
       onChange={dateObjects => {
