@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Input } from 'reactstrap';
-import DatePicker from 'react-multi-date-picker';
+import DatePicker ,{ DateObject, getAllDatesInRange }from 'react-multi-date-picker';
 import CustomNavbar from './CustomNavbar';
-import { toast } from 'react-toastify';
+import { Icons, toast } from 'react-toastify';
 import axios from 'axios';
 import { getRole, getToken } from '../auth/index';
 import { MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import RouterCard from './RouterCard/RouterCard';
 import AllManagerModal from './AllManagerModal';
 import CustomButton from './CustomButton';
+import { formatDatesForApi } from '../utils/helper';
+import { getDay } from 'date-fns';
 
 
 const axiosInstance = axios.create({
@@ -29,52 +31,24 @@ axiosInstance.interceptors.request.use(
   }
 );
  
-// Function to format dates for the API request
-const formatDatesForApi = (dates) => {
-  if (Array.isArray(dates)) {
-    // Handle multiple dates
-    return dates.map((date) => {
-      if (date instanceof Date) {
-        return date.toISOString();
-      } else {
-        // Handle cases where the date might be in a different format
-        const parsedDate = new Date(date);
-        if (!isNaN(parsedDate)) {
-          return parsedDate.toISOString();
-        } else {
-          // Handle invalid date format as needed
-          return null;
-        }
-      }
-    });
-  } else if (dates instanceof Date) {
-    // Handle a single date
-    return [dates.toISOString()];
-  } else {
-    // Handle other cases (e.g., date in a different format)
-    const parsedDate = new Date(dates);
-    if (!isNaN(parsedDate)) {
-      return [parsedDate.toISOString()];
-    } else {
-      return [];
-    }
-  }
-};
- 
 function EmployeeComponent() {
   const userRole = getRole();
   const [selectedDates, setSelectedDates] = useState([]);
+      
+const [dates, setDates] = useState([])
+const [allDates, setAllDates] = useState([])
   const [userEnteredTotalHours, setUserEnteredTotalHours] = useState(0);
   const [modal,setModal]=useState(false)
   const handleSubmit = async () => {
     console.log("slected date ",selectedDates);
     try {
-      const formattedDates = formatDatesForApi(selectedDates);
+      const formattedDates = formatDatesForApi(allDates);
       console.log("Selected Dates:::: ",formattedDates);
       if (formattedDates.length === 0) {
         toast.error('Please select at least one date.');
         return;
       }
+     
  
       const requestData = {
         dates: formattedDates,
@@ -95,6 +69,11 @@ function EmployeeComponent() {
  const handleModal=()=>{
   setModal(!modal)
  }
+ const isWeekday=(date)=>{
+  const day=getDay(date);
+  return day!==0 && day !==6
+
+}
   return (
     <MDBContainer fluid className='mx-5'>
       <CustomNavbar />
@@ -108,17 +87,26 @@ function EmployeeComponent() {
       <div className="form-group d-flex flex-column">
       <label className='fw-bold fs-6'>Select Dates</label>
       <DatePicker
-        value={selectedDates}
-        onChange={setSelectedDates}
-        multiple
-        // dateSeparator=" to "
-        multipleRangeSeparator="&"
-        placeholder="Select Dates"
-        maxDate={new Date()}
-        style={{height:35, }}
-      />
+      style={{ height:"38px"}}
+      range
+      rangeHover
+      calendarPosition="right"
+      value={dates}
+      maxDate={new DateObject()}
+      onChange={dateObjects => {
+        setDates(dateObjects)
+        setAllDates(getAllDatesInRange(dateObjects))
+      }}
+    />
     </div>
-      </MDBCol>
+
+
+
+<div>
+
+
+</div>
+  </MDBCol>
     
   <MDBCol>
   <div className="form-group">
@@ -134,7 +122,18 @@ function EmployeeComponent() {
   />
 </div>
 </MDBCol>
+
       </MDBRow>
+
+      {dates.length > 1 &&
+        <div className="d-flex flex-wrap mx-5 mt-3">
+          
+          {allDates.map((date,index)=>{
+            return <div className="card m-2 p-2" style={{background:"#f1f2f2"}}> {date.format("DD-MM-YYYY")}</div>
+          }
+          )}
+        </div>
+      }
 
       <div className='d-flex justify-content-end  ' style={{margin:"15px 58px"}}>
       <CustomButton onClick={handleSubmit} bgcolor={"#687EFF"} name={"Submit"}/>
