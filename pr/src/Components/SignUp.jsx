@@ -5,7 +5,7 @@ import { faUserAstronaut } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBInput, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import CustomNavbar from "./CustomNavbar";
-import { signUp } from "../auth/user-service";
+import { getAllManagers, signUp } from "../auth/user-service";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
@@ -31,34 +31,20 @@ const SignUp = () => {
     errors: {},
     isError: false
   });
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   useEffect(() => {
     if (data.role_id === '3') {
       // Fetch the list of managers when the role is 'User'
-      fetchManagerList();
-      
+      fetchManager();
     }
   }, [data.role_id]);
-
-  const apiUrl = `http://localhost:3001/attendance-management/v1/auth/manager-list`;
-
-  const fetchManagerList = async () => {
-    try {
-      const response = await axios.get(apiUrl);
-      console.log("Console Response... ", response);
-      if (response.data.success) {
-        setData({ ...data, managerList: response.data.data });
-      } else {
-        console.error('Failed to fetch manager list');
-      }
-    } catch (error) {
-      console.error('Error fetching manager list:', error);
-    }
-  };
+  
+  const fetchManager=()=>{
+  getAllManagers().then((response)=>{
+      setData({ ...data, managerList: response.data });
+    }).catch(error=> {
+      toast.error(error)
+    })
+  }
 
   const handleForReset = () => {
     setData({
@@ -72,37 +58,24 @@ const SignUp = () => {
     })
     if (data.role_id === '3') {
       // Fetch the list of managers when the role is 'User'
-      fetchManagerList();
+      fetchManager();
       
     }
   }
   const submitForm = (event) => {
     event.preventDefault();
-
     if (error.isError) {
       toast.error("Form data is invalid!!!");
       return;
     }
-
-    console.log(data);
 if(data.manager_id===""){
   toast.info("Please select the Manager")
   return
 }
     signUp(data).then((resp) => {
-      console.log(resp);
-      console.log("Success log");
       toast.success("You are Registered Successfully!");
       navigate('/login');
-
     }).catch((error) => {
-      console.log("Error log",error);
-       // setError({
-      //   errors: error.response.data.error,
-      //   isError: true
-      // });
-
-      //multiple error are coming in array ,seperate and display along each error individual
       const msg=error.response.data.error.split('CustomError:')[1]
       const msgArray=msg.split(';');
       {msgArray.map((m)=>(toast.error(m)))}
@@ -116,7 +89,6 @@ if(data.manager_id===""){
   const handleChange = (event, property) => {
     if (property === 'role_id') {
       const selectedRole = event.target.value;
-      console.log(selectedRole);
       if(selectedRole==='User'){
         const roleId='3'
         setRoles(selectedRole)
@@ -138,12 +110,9 @@ if(data.manager_id===""){
       }
     
     } else if (property === 'selectedManager') {
-      console.log("manager_id",event.target.value);
       // Set the manager_id value
       setData({ ...data, manager_id: event.target.value,selectedManager:event.target.value });
     } else {
-      // Handle other input fields
-      // console.log("else block");
       setData({ ...data, [property]: event.target.value });
     }
   };

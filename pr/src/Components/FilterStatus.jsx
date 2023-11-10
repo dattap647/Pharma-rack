@@ -1,8 +1,10 @@
 import React from 'react'
 import { Input, Label } from 'reactstrap'
 import CustomButton from './CustomButton'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const FilterStatus = ({status,setStatus}) => {
+  const navigate=useNavigate()
   return (
     <div className="d-flex justify-content-between my-5">
 
@@ -16,7 +18,7 @@ const FilterStatus = ({status,setStatus}) => {
       <option value="Rejected">Rejected</option>
     </Input>
     </div>
-    <CustomButton color='black' bgcolor='white' name={"Back"} href="/user/employee" />
+    <CustomButton color='black' bgcolor='white' name={"Back"} onClick={()=>navigate(-1)} />
     </div>
   )
 }

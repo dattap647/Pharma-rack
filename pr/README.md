@@ -71,6 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 
+
 CREATE TABLE pharmarack.Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -104,7 +105,7 @@ CREATE TABLE pharmarack.Attendance (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
-CREATE TABLE Notifications (
+CREATE TABLE pharmarack.Notifications (
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id INT,
     receiver_id INT,
@@ -117,14 +118,29 @@ CREATE TABLE Notifications (
 
 INSERT INTO pharmarack.roles (role_name) VALUES ('admin');
 INSERT INTO pharmarack.roles (role_name) VALUES ('manager');
-INSERT INTO pharmarack.roles (role_name) VALUES ('user');
+Insert into pharmarack.roles (role_name) values ('user');
 
 
 
 
 alter table pharmarack.users DROP email;
-alter table pharmarack.users CHANGE username email varchar(255);
+alter table pharmarack.users CHANGE full_name email varchar(255);
 
-alter table pharmarack.users add last_name varchar(255);
+alter table pharmarack.users add first_name varchar(255);
+alter table pharmarack.users add last_name varchar(255);
 
-alter table pharmarack.users add first_name varchar(255);
+
+alter table pharmarack.attendance add approval_token varchar(255);
+alter table pharmarack.users add column approval_token varchar(500);
+
+
+CREATE TABLE pharmarack.manager_request (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    manager_id INT NOT NULL,
+    status ENUM('Pending', 'Approved', 'Rejected') NOT NULL DEFAULT 'Pending',
+    request_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    approval_date DATETIME,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (manager_id) REFERENCES Users(user_id)
+);

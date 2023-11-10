@@ -42,7 +42,7 @@ const Login = () => {
         doLogin(data, () => {
           console.log('login detail saved to local storage');
           // Redirect to the user dashboard page
-          navigate('/user/employee');  
+          navigate('/home');  
         });
         toast.success('Login Successful :)');
       })

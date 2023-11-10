@@ -3,17 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Container } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { doLogout, getCurrentUserDetail, isLoggedIn } from '../auth/index';
+import { doLogout, getCurrentUserDetail, getRole, isLoggedIn } from '../auth/index';
 import { useNavigate } from 'react-router-dom';
 
 function CustomNavbar(props) {
+  const role=getRole();
   let navigate = useNavigate()
   const[login,setLogin] = useState(false)
-  const[user,setUser] = useState(undefined)
 
   useEffect(()=>{
     setLogin(isLoggedIn())
-    setUser(getCurrentUserDetail())
   },[login])
 
   const logout =()=>{
@@ -32,18 +31,18 @@ function CustomNavbar(props) {
 
         <Navbar style={{ boxShadow:"2px 1px 5px lightblue"}} color=" rounded-bottom-2" expand="md">
 
-          <NavbarBrand href="/"  className='fw-bold fs-5' >PharmaRack</NavbarBrand>
+          <NavbarBrand href="/" className='d-flex align-items-center'><img src={require('./pharmarack.png')} width="80px" /> <img src={require('./persistent.png')} width="150px" height="50px"/></NavbarBrand>
+        
 
         
           <Nav navbar className='fw-bold fs-6'>
             {
               login && (
                 <>
-                <NavItem>
 
+               {role===1?null:<NavItem>
                 <NavLink href="/user/employee" > Time Card</NavLink>
-  
-              </NavItem>
+              </NavItem>}
                 <NavItem>
                 <NavLink  onClick={logout}>Logout</NavLink>
               </NavItem>
