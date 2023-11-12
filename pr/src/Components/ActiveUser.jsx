@@ -71,7 +71,7 @@ const ActiveUser = ({ user, key, handleUpdate }) => {
   const submitStatus = () => {
     switch (role) {
       case 1:
-        if (user.role_id != data.role) updateUserRole();
+        if (user.role_id !== data.role) updateUserRole();
         if (data.status !== user.status) updateUserStatus();
         break;
       case 2:
@@ -142,11 +142,11 @@ const ActiveUser = ({ user, key, handleUpdate }) => {
         )
       ) : null}
 
-      {user.role_id === 3 && (
+      {user.role_id === 3 && role===1 ?(
         <div className="col mt-3">
           {user.manager_id === null ? "No manager Assign" : user.manager_id}
         </div>
-      )}
+      ):null}
       <div className="col">
         {edit ? (
           <div className="d-flex gap-1">

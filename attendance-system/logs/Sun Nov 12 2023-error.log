@@ -1,0 +1,4 @@
+{"level":"error","message":{"data":null,"error_message":"CustomError","functionName":"login","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-11-12T12:19:40.064Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError","functionName":"login","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-11-12T12:21:18.148Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: CustomError: Error: Access denied for user 'root'@'localhost' (using password: YES)","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-11-12T12:25:35.559Z"}
+{"level":"error","message":{"data":null,"error_message":"CustomError: CustomError: Error: Access denied for user 'root'@'localhost' (using password: YES)","functionName":"register","messageCode":null,"name":"CustomError","statusCode":500},"timestamp":"2023-11-12T12:26:16.262Z"}
