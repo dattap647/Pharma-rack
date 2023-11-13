@@ -96,27 +96,33 @@ const Managers = () => {
                     <p className="h4 fs-5 fw-bold">{u.first_name}</p>
                   </AccordionHeader>
                   <AccordionBody accordionId={u.user_id}>
-                  { 
-                    userlistBymanagerId.length>0?userlistBymanagerId.map((user) => {
-                      return (
-                        <div>
-                          <div className="row mx-4">
-                            <div className="col fs-5 fw-bold">Name</div>
-                            <div className="col fs-5 fw-bold">Email</div>
-                            <div className="col fs-5 fw-bold">Status</div>
-                            <hr className="mx-2 my-2" />
-                          </div>
-                          <div className="row mx-4 my-2" key={user.user_id}>
-                            <div className="col mt-3 ">{user.first_name}</div>
-                            <div className="col mt-3">{user.email}</div>
-                            <div className="col mt-3">{user.status}</div>
-                          </div>
+                    {userlistBymanagerId.length > 0 ? (
+                      <div>
+                        <div className="row mx-4">
+                          <div className="col fs-5 fw-bold">Name</div>
+                          <div className="col fs-5 fw-bold">Email</div>
+                          <div className="col fs-5 fw-bold">Status</div>
+                          <hr className="mx-2 my-2" />
                         </div>
-                      );
-                    }):<p className='text-center my-2 fs-5 fw-bold'>No User Under {u.first_name}</p>
-
-                  }
-                
+                        {userlistBymanagerId.map((user) => {
+                          return (
+                            <div>
+                              <div className="row mx-4 my-2" key={user.user_id}>
+                                <div className="col mt-3 ">
+                                  {user.first_name}
+                                </div>
+                                <div className="col mt-3">{user.email}</div>
+                                <div className="col mt-3">{user.status}</div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <p className="text-center my-2 fs-5 fw-bold">
+                        No User Under {u.first_name}
+                      </p>
+                    )}
                   </AccordionBody>
                 </AccordionItem>{" "}
               </Accordion>
