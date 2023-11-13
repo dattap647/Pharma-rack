@@ -6,7 +6,7 @@ import DatePicker, {
 } from "react-multi-date-picker";
 import CustomNavbar from "./CustomNavbar";
 import { toast } from "react-toastify";
-import { getRole} from "../auth/index";
+import { getRole } from "../auth/index";
 import {
   MDBCard,
   MDBCardBody,
@@ -14,9 +14,9 @@ import {
   MDBContainer,
   MDBRow,
 } from "mdb-react-ui-kit";
-import RouterCard from "./RouterCard/RouterCard";
+import RouterCard from "./common/RouterCard/RouterCard";
 import AllManagerModal from "./AllManagerModal";
-import CustomButton from "./CustomButton";
+import CustomButton from "./common/CustomButton";
 import { formatDatesForApi } from "../utils/helper";
 import { submitAttendance } from "../auth/user-service";
 

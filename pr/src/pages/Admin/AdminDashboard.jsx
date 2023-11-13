@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 import CustomNavbar from "../../Components/CustomNavbar";
-import RouterCard from "../../Components/RouterCard/RouterCard";
+import RouterCard from "../../Components/common/RouterCard/RouterCard";
 
 const AdminDashboard = () => {
   return (

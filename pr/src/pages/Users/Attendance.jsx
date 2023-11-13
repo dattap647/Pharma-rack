@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Table, Button, Container, Label, Input } from "reactstrap";
+import React, { useState, useEffect, useCallback } from "react";
+import { Table, Button, Container } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 import CustomNavbar from "../../Components/CustomNavbar";
 import { formatDate } from "../../utils/helper";
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit";
-import FilterStatus from "../../Components/FilterStatus";
+import FilterStatus from "../../Components/common/FilterStatus";
 import { toast } from "react-toastify";
-import { getUserAttendanceForManagerUrl } from "../../auth/constants";
+
 import {
   HandleAttendanceStatus,
   fetchUserAttendance,
@@ -15,11 +15,8 @@ import {
 const Attendance = () => {
   const [status, setStatus] = useState("Pending");
   const [users, setUsers] = useState([]);
-  useEffect(() => {
-    fetchUsers();
-  }, [status]);
 
-  const fetchUsers = () => {
+  const fetchUsers = useCallback(() => {
     fetchUserAttendance(status)
       .then((response) => {
         setUsers(response.data);
@@ -27,13 +24,14 @@ const Attendance = () => {
       .catch((e) => {
         toast.error(e);
       });
-  };
+  }, [status]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers, status]);
 
   const handleApproveReject = (attendanceId, newStatus) => {
-    HandleAttendanceStatus(
-      attendanceId,
-      newStatus
-    )
+    HandleAttendanceStatus(attendanceId, newStatus)
       .then((response) => {
         newStatus === "Rejected"
           ? toast.error(response.data[0])

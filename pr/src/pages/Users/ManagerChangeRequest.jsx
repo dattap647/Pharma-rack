@@ -1,15 +1,14 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { getToken } from "../../auth";
-import axios from "axios";
 import CustomNavbar from "../../Components/CustomNavbar";
-import { Button, Container, Input, Label, Table } from "reactstrap";
+import { Container, Table } from "reactstrap";
 import { formatDate } from "../../utils/helper";
 import { toast } from "react-toastify";
-import CustomButton from "../../Components/CustomButton";
+import CustomButton from "../../Components/common/CustomButton";
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit";
-import FilterStatus from "../../Components/FilterStatus";
+import FilterStatus from "../../Components/common/FilterStatus";
 import {
-  ManagerRequest,
   UpdateManagerRequestsStatus,
   fetchManagerRequest,
 } from "../../auth/user-service";
@@ -18,19 +17,20 @@ const ManagerChangeRequest = () => {
   const [status, setStatus] = useState("Pending");
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetchUsers();
-  }, [status]);
-
   const fetchUsers = () => {
     fetchManagerRequest()
       .then((response) => {
         setUsers(response.data.filter((u) => u.status === status));
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error:", error.response.data.message);
       });
   };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [status]);
+
   const handleApproveReject = (userId, status) => {
     UpdateManagerRequestsStatus(userId, status)
       .then((response) => {

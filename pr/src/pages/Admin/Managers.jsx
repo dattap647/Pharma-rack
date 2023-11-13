@@ -9,13 +9,11 @@ import {
 import CustomNavbar from "../../Components/CustomNavbar";
 import { getToken } from "../../auth";
 import axios from "axios";
-import CustomButton from "../../Components/CustomButton";
-import ActiveUser from "../../Components/ActiveUser";
+import CustomButton from "../../Components/common/CustomButton";
 const apiUrl = `http://localhost:3001/attendance-management/v1/admin/manager-list`;
 const Managers = () => {
   const [open, setOpen] = useState("");
   const [userlist, setUserList] = useState([]);
-  const [filterUser, setFilterUser] = useState("3");
   const [userlistBymanagerId, setUserListbyManager] = useState([]);
   const toggle = (id) => {
     if (open === id) {

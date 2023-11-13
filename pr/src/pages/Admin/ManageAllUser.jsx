@@ -1,43 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import ActiveUser from "../../Components/ActiveUser";
-import { getToken } from "../../auth";
+import ActiveUser from "../../Components/common/ActiveUser";
 import { Card, CardBody, CardTitle, Container, Input, Label } from "reactstrap";
 import CustomNavbar from "../../Components/CustomNavbar";
-import CustomButton from "../../Components/CustomButton";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../../Components/common/CustomButton";
+import { getAllUsers } from "../../auth/user-service";
+import { getAllUserAttendanceForAdminUrl } from "../../auth/constants";
 
 const ManageAllUser = () => {
   const [userlist, setUserList] = useState([]);
   const [filteruserlist, setFilterUserList] = useState([]);
   const [filterUser, setFilterUser] = useState("3");
   const [isUpdate, setisUpdate] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  const apiUrl = `http://localhost:3001/attendance-management/v1/admin/users-list`;
-
-
-
-  const fetchUserList = async () => {
-    try {
-      const token = getToken();
-      if (!token) {
-        console.error("No token available");
-        return;
-      }
-      const response = await axios.get(apiUrl, {
-        headers: {
-          Authorization: `${token}`,
-        },
+  const fetchUserList = () => {
+    getAllUsers(getAllUserAttendanceForAdminUrl)
+      .then((response) => {
+        setUserList(response.data);
+        setFilterUserList(
+          response.data.filter((u) => u.role_id === parseInt(filterUser))
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching manager list:", error);
       });
-      console.log("Console Response... ", response.data.data);
-      if (response.data.success) {
-        setUserList(response.data.data);
-        setFilterUserList(response.data.data.filter((u)=>u.role_id=== parseInt(filterUser)))
-      } 
-    } catch (error) {
-      console.error("Error fetching manager list:", error);
-    }
   };
 
   useEffect(() => {
@@ -45,9 +33,11 @@ const ManageAllUser = () => {
   }, [isUpdate]);
 
   useEffect(() => {
-    setFilterUserList(userlist.filter((u)=>u.role_id=== parseInt(filterUser)))
-  }, [filterUser])
-  
+    setFilterUserList(
+      userlist.filter((u) => u.role_id === parseInt(filterUser))
+    );
+  }, [filterUser]);
+
   const handleUpdate = () => {
     setisUpdate(!isUpdate);
   };
@@ -59,7 +49,7 @@ const ManageAllUser = () => {
           color="black"
           bgcolor="white"
           name={"Back"}
-          onClick={()=>navigate(-1)}
+          onClick={() => navigate(-1)}
         />
       </div>
       <Card className="my-2 mx-3">
@@ -84,7 +74,9 @@ const ManageAllUser = () => {
             <div className="col fs-5 fw-bold">Email</div>
             <div className="col fs-5 fw-bold">Status</div>
             <div className="col fs-5 fw-bold">Role Id</div>
-            {filterUser === "3" && (<div className="col fs-5 fw-bold">Manager Id</div>)}
+            {filterUser === "3" && (
+              <div className="col fs-5 fw-bold">Manager Id</div>
+            )}
             <div className="col fs-5 fw-bold">Action</div>
             <hr className="mx-2 my-2" />
           </div>

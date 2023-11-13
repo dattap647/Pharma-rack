@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 // import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
-import { getToken } from "../../auth/index";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-} from "mdb-react-ui-kit";
+import { MDBCard, MDBCardBody, MDBContainer } from "mdb-react-ui-kit";
 import CustomNavbar from "../../Components/CustomNavbar";
 import { Label } from "reactstrap";
-import CustomButton from "../../Components/CustomButton";
+import CustomButton from "../../Components/common/CustomButton";
 import DatePicker from "react-multi-date-picker";
 import { formatDatesForApi } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +17,7 @@ function TimeCardViewer() {
   const [showdata, setShowNodata] = useState(false);
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = formatDatesForApi(dateRange);
-  const fetchTimeCards =  () => {
+  const fetchTimeCards = () => {
     console.log(startDate);
     if (!startDate || !endDate) {
       toast.error("Please select both from date and to date");

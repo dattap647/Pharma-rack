@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import { Table, Button, Container, Label, Input } from "reactstrap";
+import { Table, Button, Container } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 import CustomNavbar from "../../Components/CustomNavbar";
 import { formatDate } from "../../utils/helper";
 import { MDBCard, MDBCardBody } from "mdb-react-ui-kit";
-import FilterStatus from "../../Components/FilterStatus";
+import FilterStatus from "../../Components/common/FilterStatus";
 import { toast } from "react-toastify";
-import { getUserAttendanceForManagerUrl } from "../../auth/constants";
+
 import {
   HandleAttendanceStatus,
   fetchUserAttendance,
@@ -17,9 +18,6 @@ const AllAttendance = () => {
   const role = getRole();
   const [status, setStatus] = useState("Pending");
   const [filteruserlist, setFilterUserList] = useState([]);
-  useEffect(() => {
-    fetchUsers();
-  }, [status]);
 
   const fetchUsers = () => {
     fetchUserAttendance(status)
@@ -30,6 +28,9 @@ const AllAttendance = () => {
         toast.error(e);
       });
   };
+  useEffect(() => {
+    fetchUsers();
+  }, [status]);
 
   const handleApproveReject = (attendanceId, newStatus) => {
     HandleAttendanceStatus(attendanceId, newStatus)
@@ -62,7 +63,7 @@ const AllAttendance = () => {
                     <th>User ID</th>
                     <th>Date</th>
                     <th>Status</th>
-                    {status === "Pending" || role == 1 ? (
+                    {status === "Pending" || role === 1 ? (
                       <th>Actions</th>
                     ) : null}
                   </tr>

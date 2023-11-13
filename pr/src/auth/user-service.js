@@ -5,7 +5,6 @@ import {
   UpdatechangeManagerRequestUrlForManager,
   changeManagerRequestUrlForAdmin,
   changeManagerRequestUrlForManager,
-  changeManagerUrlForManager,
   chnageRoleByAdminUrl,
   getAllManagersUrl,
   getAllUserAttendanceForAdminUrl,
@@ -18,7 +17,7 @@ import {
   userStatusbyAdminUrl,
   userStatusbyManagerUrl,
 } from "./constants";
-import { myAxios, privateAxios } from "./helper";
+import { myAxios } from "./helper";
 
 export const signUp = (user) => {
   return myAxios.post(signupUrl, user).then((response) => response.data);
@@ -58,10 +57,10 @@ export const submitAttendance = (requestData) => {
 };
 
 //get all previous record
-export const getAllPreviousTimeCards = (from,to) => {
-  const token=getToken();
+export const getAllPreviousTimeCards = (from, to) => {
+  const token = getToken();
   return myAxios
-    .get(`${getattendanceUrl}/${from}/${to}`,{
+    .get(`${getattendanceUrl}/${from}/${to}`, {
       headers: {
         Authorization: `${token}`,
       },
@@ -77,8 +76,11 @@ export const getAllManagers = () => {
 
 export const fetchUserAttendance = (status) => {
   const token = getToken();
-  const role =getRole();
-  const apiUrl = role === 1 ? getAllUserAttendanceForAdminUrl : `${getUserAttendanceForManagerUrl}/${status}`;
+  const role = getRole();
+  const apiUrl =
+    role === 1
+      ? getAllUserAttendanceForAdminUrl
+      : `${getUserAttendanceForManagerUrl}/${status}`;
   return myAxios
     .get(apiUrl, {
       headers: {
@@ -88,10 +90,13 @@ export const fetchUserAttendance = (status) => {
     .then((response) => response.data);
 };
 
-export const HandleAttendanceStatus = (attendanceId,newStatus) => {
+export const HandleAttendanceStatus = (attendanceId, newStatus) => {
   const token = getToken();
-  const role =getRole();
-  const apiUrl = role === 1 ? UpdateUserAttendanceForAdminUrl : getUserAttendanceForManagerUrl;
+  const role = getRole();
+  const apiUrl =
+    role === 1
+      ? UpdateUserAttendanceForAdminUrl
+      : getUserAttendanceForManagerUrl;
   return myAxios
     .put(
       apiUrl,
@@ -110,54 +115,64 @@ export const HandleAttendanceStatus = (attendanceId,newStatus) => {
 
 export const UserStatus = (userId, status) => {
   const token = getToken();
-  const role =getRole();
+  const role = getRole();
   const apiUrl = role === 1 ? userStatusbyAdminUrl : userStatusbyManagerUrl;
-  return myAxios.put(
-    `${apiUrl}/${userId}/${status}`,
-    {},
-    {
-      headers: {
-        Authorization: `${token}`,
-      },
-    }
-  ).then((response) => response.data);
+  return myAxios
+    .put(
+      `${apiUrl}/${userId}/${status}`,
+      {},
+      {
+        headers: {
+          Authorization: `${token}`,
+        },
+      }
+    )
+    .then((response) => response.data);
 };
 
 export const UserRole = (requestData) => {
   const token = getToken();
-  return myAxios.post(chnageRoleByAdminUrl, requestData, {
-    headers: {
-      Authorization: `${token}`,
-    },
-  }).then((response) => response.data);
-};
-
-
-export const fetchManagerRequest=()=>{
-  const token = getToken();
-  const role=getRole();
-  const apiUrl = role === 1 ? changeManagerRequestUrlForAdmin: changeManagerRequestUrlForManager;
-  return myAxios.get(
-    apiUrl,
-    {
+  return myAxios
+    .post(chnageRoleByAdminUrl, requestData, {
       headers: {
         Authorization: `${token}`,
       },
-    }
-  ).then(response=>response.data);
-}
+    })
+    .then((response) => response.data);
+};
+
+export const fetchManagerRequest = () => {
+  const token = getToken();
+  const role = getRole();
+  const apiUrl =
+    role === 1
+      ? changeManagerRequestUrlForAdmin
+      : changeManagerRequestUrlForManager;
+  return myAxios
+    .get(apiUrl, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+    .then((response) => response.data);
+};
 
 export const UpdateManagerRequestsStatus = (userId, status) => {
   const token = getToken();
-  const role =getRole();
-  const apiUrl = role === 1 ? UpdatechangeManagerRequestUrlForAdmin : UpdatechangeManagerRequestUrlForManager;
-  return myAxios.put(
-    `${apiUrl}/${userId}/${status}`,
-    {},
-    {
-      headers: {
-        Authorization: `${token}`,
-      },
-    }
-  ).then((response) => response.data);
+  const role = getRole();
+  const apiUrl =
+    role === 1
+      ? UpdatechangeManagerRequestUrlForAdmin
+      : UpdatechangeManagerRequestUrlForManager;
+  return myAxios
+    .put(
+      `${apiUrl}/${userId}/${status}`,
+      {},
+      {
+        headers: {
+          Authorization: `${token}`,
+        },
+      }
+    )
+    .then((response) => response.data);
 };

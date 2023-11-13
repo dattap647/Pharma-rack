@@ -1,10 +1,8 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { getRole, getToken } from "../auth";
+import React, { useState } from "react";
+import { getRole } from "../../auth";
 import { toast } from "react-toastify";
 import { Button, Input } from "reactstrap";
-import { UserRole, UserStatus } from "../auth/user-service";
-
+import { UserRole, UserStatus } from "../../auth/user-service";
 const ActiveUser = ({ user, key, handleUpdate }) => {
   const role = getRole();
   const [data, setData] = useState({
@@ -37,7 +35,7 @@ const ActiveUser = ({ user, key, handleUpdate }) => {
       role: "User",
     },
   ];
-  const updateUserStatus =() => {
+  const updateUserStatus = () => {
     UserStatus(data.userId, data.status)
       .then((response) => {
         setEdit(!edit);
@@ -142,11 +140,11 @@ const ActiveUser = ({ user, key, handleUpdate }) => {
         )
       ) : null}
 
-      {user.role_id === 3 && role===1 ?(
+      {user.role_id === 3 && role === 1 ? (
         <div className="col mt-3">
           {user.manager_id === null ? "No manager Assign" : user.manager_id}
         </div>
-      ):null}
+      ) : null}
       <div className="col">
         {edit ? (
           <div className="d-flex gap-1">
