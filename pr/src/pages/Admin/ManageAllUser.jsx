@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import ActiveUser from "../../Components/common/ActiveUser";
 import { Card, CardBody, CardTitle, Container, Input, Label } from "reactstrap";
@@ -6,7 +5,7 @@ import CustomNavbar from "../../Components/CustomNavbar";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../Components/common/CustomButton";
 import { getAllUsers } from "../../auth/user-service";
-import { getAllUserAttendanceForAdminUrl } from "../../auth/constants";
+import { getUserlistForAdminUrl } from "../../auth/constants";
 
 const ManageAllUser = () => {
   const [userlist, setUserList] = useState([]);
@@ -16,7 +15,7 @@ const ManageAllUser = () => {
   const navigate = useNavigate();
 
   const fetchUserList = () => {
-    getAllUsers(getAllUserAttendanceForAdminUrl)
+    getAllUsers(getUserlistForAdminUrl)
       .then((response) => {
         setUserList(response.data);
         setFilterUserList(
@@ -27,7 +26,6 @@ const ManageAllUser = () => {
         console.error("Error fetching manager list:", error);
       });
   };
-
   useEffect(() => {
     fetchUserList();
   }, [isUpdate]);
