@@ -17,36 +17,54 @@ import {
 import RouterCard from "./common/RouterCard/RouterCard";
 import AllManagerModal from "./AllManagerModal";
 import CustomButton from "./common/CustomButton";
-import { formatDatesForApi } from "../utils/helper";
 import { submitAttendance } from "../auth/user-service";
 
 function EmployeeComponent() {
   const userRole = getRole();
-  const [dates, setDates] = useState([]);
   const [allDates, setAllDates] = useState([]);
+  const [data, setData] = useState([]);
   const [userEnteredTotalHours, setUserEnteredTotalHours] = useState(0);
   const [modal, setModal] = useState(false);
+
+  const handleChange = (e, d) => {
+    setData([
+      ...data,
+      {
+        date: d,
+        logged_hours: parseFloat(e.target.value),
+      },
+    ]);
+    setUserEnteredTotalHours(userEnteredTotalHours + parseInt(e.target.value));
+  };
+
   const handleSubmit = async () => {
+    console.log(data);
     try {
-      const formattedDates = formatDatesForApi(allDates);
-      if (formattedDates.length === 0) {
+      if (data.length === 0) {
         toast.error("Please select at least one date.");
         return;
       }
-      const requestData = {
-        dates: formattedDates,
-        logged_hours: userEnteredTotalHours,
-      };
-      submitAttendance(requestData)
+      if (allDates.length !== data.length) {
+        toast.error("Please Mark all time Card.");
+        return;
+      }
+
+      submitAttendance(data)
         .then((data) => {
-          toast.success("Data submitted successfully.");
-          setDates([]);
+          data.data.forEach((m) => {
+            m.success ? toast.success(m.message) : toast.error(m.message);
+          });
           setAllDates([]);
+          setData([]);
+          setUserEnteredTotalHours(0);
         })
         .catch((error) => {
           toast.error(`Error submitting data: ${error.message}`);
         });
     } catch (error) {
+      setAllDates([]);
+      setData([]);
+      setUserEnteredTotalHours(0);
       toast.error("Error Formatting dates. Please select valid dates");
     }
   };
@@ -64,15 +82,17 @@ function EmployeeComponent() {
             <MDBRow className="mx-5">
               <MDBCol col="6">
                 <div className="form-group d-flex flex-column">
-                  <label className="fw-bold fs-6">Select Dates</label>
+                  <label className="fw-bold ">Select Dates</label>
                   <DatePicker
                     style={{ height: "38px" }}
                     range
                     rangeHover
-                    value={dates}
+                    value={allDates}
                     maxDate={new DateObject()}
                     onChange={(dateObjects) => {
-                      setDates(dateObjects);
+                      setAllDates([]);
+                      setData([]);
+                      setUserEnteredTotalHours(0);
                       setAllDates(getAllDatesInRange(dateObjects));
                     }}
                   />
@@ -83,32 +103,44 @@ function EmployeeComponent() {
 
               <MDBCol>
                 <div className="form-group">
-                  <label className="fw-bold fs-6">Total Hours</label>
+                  <label className="fw-bold ">Total Hours</label>
                   <Input
                     type="number"
                     step="0.01"
                     name="logged_hours"
                     value={userEnteredTotalHours}
-                    onChange={(e) =>
-                      setUserEnteredTotalHours(parseFloat(e.target.value) || 0)
-                    }
+                    // onChange={(e) =>
+                    //   setUserEnteredTotalHours(parseFloat(e.target.value) || 0)
+                    // }
                     className="form-control"
                     placeholder="Total Hours"
+                    disabled
                   />
                 </div>
               </MDBCol>
             </MDBRow>
 
-            {dates.length > 1 && (
-              <div className="d-flex flex-wrap mx-5 mt-3">
-                {allDates.map((date, index) => {
+            {allDates.length > 1 && (
+              <div className="d-flex flex-wrap mx-5 mt-3 ">
+                {allDates.map((d, index) => {
+                  var date = d.format("DD-MM-YYYY");
                   return (
                     <div
-                      className="card m-2 p-2"
-                      style={{ background: "#f1f2f2" }}
+                      key={index}
+                      className="d-flex align-items-center gap-2 "
                     >
-                      {" "}
-                      {date.format("DD-MM-YYYY")}
+                      <div
+                        className="card m-1 p-2 col-2 w-50 h-75"
+                        style={{ background: "#f1f2f2" }}
+                      >
+                        {date}
+                      </div>
+                      <Input
+                        className=" w-25 h-75"
+                        type="number"
+                        required
+                        onChange={(e) => handleChange(e, date, index)}
+                      />
                     </div>
                   );
                 })}

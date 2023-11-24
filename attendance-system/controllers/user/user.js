@@ -42,17 +42,20 @@ class User {
         try {
             
             const validatedPayload = await this.schemaValidator.validateSchema(this.payload, userSchema.addAttendanceSchema());
-            const { dates, logged_hours} = validatedPayload;
+            //const { dates, logged_hours} = validatedPayload;
+            let dates = [];
             const result = [];
             
             const uuid = uuidv4();
-            for (let i = 0; i < dates.length; i++){
+            for (let i = 0; i < validatedPayload.length; i++){
                 const data = {
                     user_id : this.payload.user_id,
-                    date : dates[i],
-                    logged_hours : logged_hours,
+                    date : validatedPayload[i].date,
+                    logged_hours : validatedPayload[i].logged_hours,
                     uuid 
                 }
+                let date_formatted = moment(validatedPayload[i].date).format("YYYY-MM-DD");
+                dates.push(date_formatted);
                 const commonUtility = new CommonUtility();
                 result.push(await commonUtility.addUserAttendance(data));
             }

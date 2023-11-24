@@ -26,7 +26,7 @@ class CommonUtility {
             const [results] = await executeQuery(query, [email]);
             return results[0];
         } catch (error) {
-            throw new CustomError()
+            throw new CustomError(error, 500, "getUserByEmail");
         }
     }
 
@@ -36,7 +36,7 @@ class CommonUtility {
             const [results] = await executeQuery(query);
             return results[0];
         } catch (error) {
-            throw new CustomError()
+            throw new CustomError(error, 500, "getDefaultAdmin");
         }
     }
 
@@ -75,7 +75,7 @@ class CommonUtility {
             const [results] = await executeQuery(query, [user_id]);
             return results[0];
         } catch (error) {
-            throw new CustomError(error, 500, "getUserByEmail");
+            throw new CustomError(error, 500, "getUserByUserId");
         }
     }
 
@@ -95,7 +95,7 @@ class CommonUtility {
             const [results] = await executeQuery(query, [id]);
             return results[0];
         } catch (error) {
-            throw new CustomError(error, 500, "getUserAttendanceByUserId");
+            throw new CustomError(error, 500, "getUserAttendanceById");
         }
     }
 
@@ -106,14 +106,20 @@ class CommonUtility {
                 const status = 'Pending';
                 const query = 'INSERT INTO Attendance (user_id, date, status, total_hours, approval_token) VALUES (?, ?,  ?, ?, ?)';
                 const [results] = await executeQuery(query, [data.user_id, data.date, status, data.logged_hours, data.uuid]);
-                return `Attendance record added for ${moment(data.date).format('YYYY-MM-DD')}.`;
+                return {
+                    message: `Attendance record added for ${moment(data.date).format('YYYY-MM-DD')}.`,
+                    success: true
+                }
             } else {
                 throw "Manager not assigned to you, Please send request for manager assignment.";
             }
 
         } catch (error) {
             if (error?.code == 'ER_DUP_ENTRY') {
-                return `Attendance record alredy exists for ${moment(data.date).format('YYYY-MM-DD')}.`
+                return {
+                    message : `Attendance record alredy exists for ${moment(data.date).format('YYYY-MM-DD')}.`,
+                    success: false
+                }
             }
             throw new CustomError(error, 500, "addUserAttendance");
         }
@@ -135,7 +141,7 @@ class CommonUtility {
             const [results] = await executeQuery(query);
             return results;
         } catch (error) {
-            throw new CustomError(error, 500, "getManagerRequest");
+            throw new CustomError(error, 500, "getAllManagerRequest");
         }
     }
 
@@ -213,7 +219,7 @@ class CommonUtility {
             }
 
         } catch (error) {
-            throw new CustomError(error, 500, "addUserAttendance");
+            throw new CustomError(error, 500, "addManagerRequest");
         }
     }
 
@@ -256,7 +262,7 @@ class CommonUtility {
                 //return `Not Authorized to update manager request with ID ${id}.`
             } 
         } catch (error) {
-            throw new CustomError(error, 500, "addUserAttendance");
+            throw new CustomError(error, 500, "updateManagerRequest");
         }
     }
 
@@ -276,7 +282,7 @@ class CommonUtility {
             const [results] = await executeQuery(query, [manager_id, id]);
             return results;
         } catch (error) {
-            throw new CustomError(error, 500, "updateMangerId");
+            throw new CustomError(error, 500, "updateDefaultMangerId");
         }
     }
 
@@ -316,7 +322,7 @@ class CommonUtility {
             const [results] = await executeQuery(query, [attendance_id]);
             return results[0];
         } catch (error) {
-            throw new CustomError(error, 500, "getUsersByManager");
+            throw new CustomError(error, 500, "getUsersByAttendanceId");
         }
     }
 
@@ -345,7 +351,7 @@ class CommonUtility {
             const [results] = await executeQuery(query);
             return results;
         } catch (error) {
-            throw new CustomError(error, 500, "attendanceRecordsByManager");
+            throw new CustomError(error, 500, "allAttendanceRecords");
         }
     }
 
@@ -366,7 +372,7 @@ class CommonUtility {
                 return 401;
             }
         } catch (error) {
-            throw new CustomError(error, 500, "updateUserRoles");
+            throw new CustomError(error, 500, "updateattendanceRecords");
         }
     }
 
@@ -412,23 +418,13 @@ class CommonUtility {
         }
     }
 
-    async getUserIdsByAttendanceID(attendance_ids) {
-        try {
-            const query = 'SELECT user_id FROM Attendance where manager_id = ?'
-            const [results] = await executeQuery(query, [user_id]);
-            return results;
-        } catch (error) {
-            throw new CustomError(error, 500, "attendanceRecordsByManager");
-        }
-    }
-
     async getUserIdsBelongstoManager(user_id) {
         try {
             const query = 'SELECT user_id FROM Users where manager_id = ?'
             const [results] = await executeQuery(query, [user_id]);
             return results;
         } catch (error) {
-            throw new CustomError(error, 500, "attendanceRecordsByManager");
+            throw new CustomError(error, 500, "getUserIdsBelongstoManager");
         }
     }
 

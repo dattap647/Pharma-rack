@@ -68,12 +68,10 @@ const userSchema = {
         }),
     }),
 
-    addAttendanceSchema : () => Joi.object().keys({
-        dates : Joi.array().items(
-            Joi.date().required().messages({
+    addAttendanceSchema : () => Joi.array().items({
+        date : Joi.date().required().messages({
                 'date.base' : 'Date must be a valid date'
-            })
-        ),
+        }),
         logged_hours : Joi.number().required().messages({
             'number.base' : 'Logged hours must be a number',
             'number.empty' : 'Logged hours is required',
